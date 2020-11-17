@@ -36,13 +36,14 @@ void displayLogo() {
 			"           ####               ####\n"
 			"              .##############,\n\n", backslash, backslash, backslash, backslash, backslash);
 
+	printf("---------------------------------------------------------------------------------------------------------\n\n");
+
 
 }
 
 void displayFunctions() {
 
-    printf("Welcome to the recipe manager!\n"
-			"please select one of the options:\n\n"
+    printf("Welcome to the recipe manager, please select one of the options:\n\n"
 			"a) Login to your account\n"
 			"b) Create an account\n"
 			"c) View public recipies\n"
@@ -63,8 +64,6 @@ void getUserOption(USER* userArray) {
 		char userOptionRemoved = userOption[0];
 		userOptionRemoved = toupper(userOptionRemoved);
 
-		//strtok(userOption, "\n");
-
 		int sizeOfInput = 0;
 		//counts size of input from user
 		for (int i = 0; i < strlen(userOption); i++) {
@@ -74,11 +73,6 @@ void getUserOption(USER* userArray) {
 				userOptionRemoved = NULL;
 			}
 		}
-
-		//if user input is larger than 1 character, set to null for automatic invalid entry
-		/*if (sizeOfInput > MAX_ACCEPTABLE_INPUT) {
-			userOptionRemoved = NULL;
-		}*/
 
 		switch (userOptionRemoved) {
 		case 'A':
@@ -111,8 +105,6 @@ void getUserOption(USER* userArray) {
 
 	free(userOption);
 }
-
-
 
 
 void getLoginFromUser(USER* userArray) {

@@ -33,14 +33,12 @@ USER* getUsersFromFile() {
 		strcpy(userArray[currLine].username, tempUser.username);
 		strcpy(userArray[currLine].password, tempUser.password);
 
-		//userArray[currLine] = tempUser;
-
-		//free(tempUser);
 		currLine++;
 	}
 
 	free(tempUsername);
 	free(tempPassword);
+
 	printf("\n");
 	for (int i = 0; i < currLine; i++) {
 
@@ -48,8 +46,7 @@ USER* getUsersFromFile() {
 
 	}
 
-
-	//fflush(login);
+	fflush(login);
 	fclose(login);
 
 	return userArray;
@@ -58,7 +55,6 @@ USER* getUsersFromFile() {
 
 USER createUser(char* username, char* password) {
 	
-	//PUSER pCurrUser = (PUSER*)malloc(sizeof(PUSER));
 	USER currUser;
 
 	strcpy(currUser.username, username);
@@ -67,3 +63,37 @@ USER createUser(char* username, char* password) {
 	return currUser;
 
 }
+
+char* getUsername(USER * userArray, int pos) {
+
+	char* username = allocateCharArray();
+	strcpy(username, userArray[pos].username);
+
+	return username;
+
+}
+
+char* getPassword(USER * userArray, int pos) {
+
+	char* password = allocateCharArray();
+	strcpy(password, userArray[pos].password);
+
+	return password;
+
+}
+
+int getSizeOfUserArray(USER * userArray) {
+
+	int sizeOfArray = 0;
+
+	while (strcmp(getUsername(userArray, sizeOfArray), "") != 0 ||
+		strcmp(getPassword(userArray, sizeOfArray), "") != 0) {
+
+		sizeOfArray++;
+
+	}
+
+	return sizeOfArray;
+
+}
+

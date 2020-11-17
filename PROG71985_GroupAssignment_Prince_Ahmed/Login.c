@@ -1,3 +1,6 @@
+
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <string.h>
 #include <stdbool.h>
 
@@ -7,33 +10,47 @@
 
 bool checkCreds(char* username, char* password, USER* userArray) {
 
-	int sizeOfArray = 0;
+	int sizeOfArray = getSizeOfUserArray(userArray);
 
-	while (strcmp(userArray[sizeOfArray].username, "") != 0 ||
-		   strcmp(userArray[sizeOfArray].password, "") != 0) {
-		
-		sizeOfArray++;
+	int usernameResult, passwordResult;
 
-	}
-	int usernameResult;
-	int passwordResult;
+	char* tempUsername = allocateCharArray();
+	char* tempPassword = allocateCharArray();
+
+	bool validCheck = false;
 
 	for (int i = 0; i < sizeOfArray; i++) {
 
-		usernameResult = strcmp(username, userArray[i].username);
-		passwordResult = strcmp(password, userArray[i].password);
+		strcpy(tempUsername, getUsername(userArray, i));
+		strcpy(tempPassword, getPassword(userArray, i));
+
+		reallocateCharArray(tempUsername, strlen(tempUsername));
+		reallocateCharArray(tempPassword, strlen(tempPassword));
+		
+		usernameResult = strcmp(tempUsername, username);
+		passwordResult = strcmp(tempPassword, password);
 
 		if (usernameResult == 0 && passwordResult == 0) {
-
-			return true;
+			
+			validCheck = true;
+			break;
 
 		} else {
 
-			return false;
+			validCheck = false;
 
 		}
 	}
-	
+
+	if (validCheck) {
+
+		return true;
+
+	} else {
+
+		return false;
+
+	}
 
 }
 

@@ -14,17 +14,10 @@ typedef struct user {
 
 } USER, *PUSER;
 
-
-
 USER* getUsersFromFile();
-
 USER createUser(char*, char*);
-
-//char* getUsername(PUSER*, int);
-//char* getPassword(PUSER*, int);
-//
-//char* setUsername(PUSER*, int, char*);
-//
-//char* setPassword(PUSER*, int, char*);
+char* getUsername(USER*, int);
+char* getPassword(USER*, int);
+int getSizeOfUserArray(USER*);
 
 
