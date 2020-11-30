@@ -29,19 +29,28 @@
  *
  */
 
-#include <stdio.h>
 #include "Input.h"
 #include "Login.h"
 #include "User.h"
+#include "Menu.h"
+#include "FileIO.h"
 
+
+#include <stdio.h>
 
 int main(void) {
-
-	USER* userArray = getUsersFromFile();
-
+	//USER* userArray = getUsersFromFile();
+	//RECIPE p = createRecipe("SoyGingerGlaze");
+	PRLIST recipeList = readRecipeList();
 	displayLogo();
-	displayFunctions();
-	getUserOption(userArray);
+	//displayAccountFunctions();
+	//getAccountOption(userArray);
+	
+	//read
+	displayRecipeFunctions();
+	getRecipeMenuOption();
+
+	
 
 	return 0;
 }

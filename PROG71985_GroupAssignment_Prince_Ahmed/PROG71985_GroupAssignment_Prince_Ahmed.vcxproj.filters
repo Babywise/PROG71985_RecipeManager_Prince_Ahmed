@@ -36,6 +36,27 @@
     <ClInclude Include="Allocation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RecipeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RecipeADT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ingredient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IngredientADT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IngredientNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Recipe.c">
@@ -57,6 +78,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Allocation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RecipeADT.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RecipeNode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIO.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ingredient.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IngredientADT.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IngredientNode.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,8 @@
 #define MAX_NAME_LENGTH 255
 #define MAX_ACCEPTABLE_INPUT 1
 
-void displayLogo();
-void displayFunctions();
-void getUserOption(USER*);
+char* getMenuInput();
+char* checkInputSize(char*);
+void getAccountOption(USER*);
 void getLoginFromUser(USER*);
+void getRecipeMenuOption();

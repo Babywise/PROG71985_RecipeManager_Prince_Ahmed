@@ -9,60 +9,84 @@
 #include <string.h>
 #include <stdio.h>
 
+char* getMenuInput() {
 
-void displayLogo() {
+	int maxCount = sizeof(char);
+	char* userInput = allocateCharArray();
 
-	int backslash = 92;
+	if (userInput == NULL) {
 
-	printf("                 .##########.\n"
-		"      ########/###          ###/########\n"
-		"   ###(       #,              .#       (###\n"
-		"  ##.                                     ##		__________________   __________________\n"
-		" (##                                      ###      .-/|                  %c /                  |%c-.\n"
-		"  ##                                      ##       ||||                   |                   ||||\n"
-		"   ##                                    ##.       ||||                   |                   ||||\n"
-		"     ###(                            /###.         ||||                   |       ~~*~~       ||||\n"
-		"     ##(                            /##            ||||    --==*==--      |                   ||||\n"
-		"     ##(                            /##            ||||                   |                   ||||\n"
-		"     ##(                            /##            ||||     Recipe        |                   ||||\n"
-		"     ##################################            ||||     Manager       |     --==*==--     ||||\n"
-		"     #############/####################            ||||                   |                   ||||\n"
-		"      ##########...........##########              ||||    By: Nick  &    |                   ||||\n"
-		"     ######...  0 ....... 0 ....######             ||||        Islam      |                   ||||\n"
-		"     ##.............................##             ||||                   |                   ||||\n"
-		"     %c##...##..................##...##             ||||__________________ | __________________||||\n"
-		"      ##..,# #...##########..# #*..##              ||/===================%c|/===================%c||\n"
-		"        ###.,# ######  ###### #*.###               `--------------------~___~-------------------''\n"
-		"           ####               ####\n"
-		"              .##############,\n\n", backslash, backslash, backslash, backslash, backslash);
+		printf("Memory could not be allocated");
+		exit(EXIT_FAILURE);
 
-	printf("---------------------------------------------------------------------------------------------------------\n\n");
+	} else {
 
+		char ch = NULL;
+		int i = 0;
+
+		//Accept input until user hits enter
+		while ((ch = getchar()) != '\n' && ch != NULL) {
+
+			userInput[i] = toupper(ch);
+			i++;
+
+			//input should a single char but if a word longer than 1 bytes is entered (like 'abort') size of input allowed is increased by x2
+			//if i reaches max expected input (maxCount) buffer for char seatSelection is realloced by x2, 
+			if (i == maxCount) {
+
+				maxCount++;
+				userInput = reallocateCharArray(userInput, maxCount);
+
+				if (userInput == NULL) {
+
+					printf("Memory could not be re-allocated");
+					exit(EXIT_FAILURE);
+
+				}
+			}
+		}
+
+		//replaces last char '\n' with NULL
+		userInput[i] = NULL;
+
+	}
+
+	return userInput;
 
 }
 
-void displayFunctions() {
+char* checkInputSize(char* userInputLetter) {
 
-	printf("Welcome to the recipe manager, please select one of the options:\n\n"
-		"a) Login to your account\n"
-		"b) Create an account\n"
-		"c) View public recipies\n"
-		"d) exit\n");
+	int sizeOfInput = 0;
+
+	//counts size of input from user
+	for (int i = 0; i < strlen(userInputLetter); i++) {
+		if (userInputLetter[i] != NULL) {
+			sizeOfInput++;
+		}
+	}
+
+	//if user input is larger than 1 character, set to null for automatic invalid entry
+	if (sizeOfInput > MAX_ACCEPTABLE_INPUT) {
+		for (int i = 0; i < strlen(userInputLetter); i++) {
+			userInputLetter[i] = NULL;
+		}
+	}
+
+	return userInputLetter;
 
 }
 
-void getUserOption(USER* userArray) {
 
-	char* userOption = allocateCharArray();
+void getAccountOption(USER* userArray) {
 
+	char* userOption;
 	bool validOption = false;
 
 	do {
 
-		fgets(userOption, MAX_NAME_LENGTH, stdin);
-		userOption = reallocateCharArray(userOption, strlen(userOption));
-		char userOptionRemoved = userOption[0];
-		userOptionRemoved = toupper(userOptionRemoved);
+		char* userOption = getMenuInput();
+		char* userOptionRemoved = checkInputSize(userOption);
 
 		int sizeOfInput = 0;
 		//counts size of input from user
@@ -74,7 +98,7 @@ void getUserOption(USER* userArray) {
 			}
 		}
 
-		switch (userOptionRemoved) {
+		switch (*userOptionRemoved) {
 		case 'A':
 			validOption = true;
 			getLoginFromUser(userArray);
@@ -87,11 +111,6 @@ void getUserOption(USER* userArray) {
 
 		case 'C':
 			validOption = true;
-			//function
-			break;
-
-		case 'D':
-			validOption = true;
 			exit(EXIT_SUCCESS);
 			break;
 
@@ -101,9 +120,10 @@ void getUserOption(USER* userArray) {
 			break;
 		}
 
+		free(userOption);
+
 	} while (!validOption);
 
-	free(userOption);
 }
 
 
@@ -135,5 +155,86 @@ void getLoginFromUser(USER* userArray) {
 		getLoginFromUser(userArray);
 
 	}
+
+}
+
+void getRecipeMenuOption() {
+
+	char* userOption;
+	bool validOption = false;
+
+	do {
+
+		char* userOption = getMenuInput();
+		char* userOptionRemoved = checkInputSize(userOption);
+
+		int sizeOfInput = 0;
+		//counts size of input from user
+		for (int i = 0; i < strlen(userOption); i++) {
+			if (userOptionRemoved == '\n') {
+				userOptionRemoved = NULL;
+			} else if (i > MAX_ACCEPTABLE_INPUT) {
+				userOptionRemoved = NULL;
+			}
+		}
+
+		switch (*userOptionRemoved) {
+		case 'A':
+			validOption = true;
+			//displayRecipeList();
+			//displaySingleRecipe();
+			break;
+
+		case 'B':
+			validOption = true;
+			//displayRecipeList();
+			//displayRangeRecipe();
+			break;
+
+		case 'C':
+			validOption = true;
+			//displayRecipeList();
+			//displayAllRecipe();
+			break;
+
+		case 'D':
+			validOption = true;
+			//createNewRecipe
+			break;
+
+		case 'E':
+			validOption = true;
+			//editRecipe
+			break;
+
+		case 'F':
+			validOption = true;
+			//deleteRecipe
+			break;
+
+		case 'G':
+			validOption = true;
+			//searchRecipe
+			break;
+
+		case 'H':
+			validOption = true;
+			//sortRecipe
+			break;
+
+		case 'I':
+			validOption = true;
+			exit(EXIT_SUCCESS);
+			break;
+
+		default:
+			printf("Please enter a valid option: ");
+			validOption = false;
+			break;
+		}
+
+		free(userOption);
+
+	} while (!validOption);
 
 }

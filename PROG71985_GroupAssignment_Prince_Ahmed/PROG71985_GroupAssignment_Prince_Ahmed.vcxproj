@@ -142,17 +142,31 @@
     <ClInclude Include="Allocation.h" />
     <ClInclude Include="Cuisine.h" />
     <ClInclude Include="dirent.h" />
+    <ClInclude Include="FileIO.h" />
+    <ClInclude Include="Ingredient.h" />
+    <ClInclude Include="IngredientADT.h" />
+    <ClInclude Include="IngredientNode.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Login.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Recipe.h" />
+    <ClInclude Include="RecipeADT.h" />
+    <ClInclude Include="RecipeNode.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allocation.c" />
     <ClCompile Include="Cuisine.c" />
+    <ClCompile Include="FileIO.c" />
+    <ClCompile Include="Ingredient.c" />
+    <ClCompile Include="IngredientADT.c" />
+    <ClCompile Include="IngredientNode.c" />
     <ClCompile Include="Input.c" />
     <ClCompile Include="Login.c" />
+    <ClCompile Include="Menu.c" />
     <ClCompile Include="Recipe.c" />
+    <ClCompile Include="RecipeADT.c" />
+    <ClCompile Include="RecipeNode.c" />
     <ClCompile Include="Source.c" />
     <ClCompile Include="User.c" />
   </ItemGroup>
