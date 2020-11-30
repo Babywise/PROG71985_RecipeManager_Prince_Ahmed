@@ -15,26 +15,26 @@ void displayLogo() {
 	int backslash = 92;
 
 	printf("                 .##########.\n"
-			"      ########/###          ###/########\n"
-			"   ###(       #,              .#       (###\n"
-			"  ##.                                     ##		__________________   __________________\n"
-			" (##                                      ###      .-/|                  %c /                  |%c-.\n"
-			"  ##                                      ##       ||||                   |                   ||||\n"
-			"   ##                                    ##.       ||||                   |                   ||||\n"
-			"     ###(                            /###.         ||||                   |       ~~*~~       ||||\n"
-			"     ##(                            /##            ||||    --==*==--      |                   ||||\n"
-			"     ##(                            /##            ||||                   |                   ||||\n"
-			"     ##(                            /##            ||||     Recipe        |                   ||||\n"
-			"     ##################################            ||||     Manager       |     --==*==--     ||||\n"
-			"     #############/####################            ||||                   |                   ||||\n"
-			"      ##########...........##########              ||||    By: Nick  &    |                   ||||\n"
-			"     ######...  0 ....... 0 ....######             ||||        Islam      |                   ||||\n"
-			"     ##.............................##             ||||                   |                   ||||\n"
-			"     %c##...##..................##...##             ||||__________________ | __________________||||\n"
-			"      ##..,# #...##########..# #*..##              ||/===================%c|/===================%c||\n"
-			"        ###.,# ######  ###### #*.###               `--------------------~___~-------------------''\n"
-			"           ####               ####\n"
-			"              .##############,\n\n", backslash, backslash, backslash, backslash, backslash);
+		"      ########/###          ###/########\n"
+		"   ###(       #,              .#       (###\n"
+		"  ##.                                     ##		__________________   __________________\n"
+		" (##                                      ###      .-/|                  %c /                  |%c-.\n"
+		"  ##                                      ##       ||||                   |                   ||||\n"
+		"   ##                                    ##.       ||||                   |                   ||||\n"
+		"     ###(                            /###.         ||||                   |       ~~*~~       ||||\n"
+		"     ##(                            /##            ||||    --==*==--      |                   ||||\n"
+		"     ##(                            /##            ||||                   |                   ||||\n"
+		"     ##(                            /##            ||||     Recipe        |                   ||||\n"
+		"     ##################################            ||||     Manager       |     --==*==--     ||||\n"
+		"     #############/####################            ||||                   |                   ||||\n"
+		"      ##########...........##########              ||||    By: Nick  &    |                   ||||\n"
+		"     ######...  0 ....... 0 ....######             ||||        Islam      |                   ||||\n"
+		"     ##.............................##             ||||                   |                   ||||\n"
+		"     %c##...##..................##...##             ||||__________________ | __________________||||\n"
+		"      ##..,# #...##########..# #*..##              ||/===================%c|/===================%c||\n"
+		"        ###.,# ######  ###### #*.###               `--------------------~___~-------------------''\n"
+		"           ####               ####\n"
+		"              .##############,\n\n", backslash, backslash, backslash, backslash, backslash);
 
 	printf("---------------------------------------------------------------------------------------------------------\n\n");
 
@@ -43,11 +43,11 @@ void displayLogo() {
 
 void displayFunctions() {
 
-    printf("Welcome to the recipe manager, please select one of the options:\n\n"
-			"a) Login to your account\n"
-			"b) Create an account\n"
-			"c) View public recipies\n"
-			"d) exit\n");
+	printf("Welcome to the recipe manager, please select one of the options:\n\n"
+		"a) Login to your account\n"
+		"b) Create an account\n"
+		"c) View public recipies\n"
+		"d) exit\n");
 
 }
 
@@ -109,8 +109,9 @@ void getUserOption(USER* userArray) {
 
 void getLoginFromUser(USER* userArray) {
 
-	char* username = allocateCharArray();
-	char* password = allocateCharArray();
+	char username[MAX_NAME_LENGTH] = { "" };
+	char password[MAX_NAME_LENGTH] = { "" };
+
 	bool validationCheck = false;
 
 	printf("Please enter your username: ");
@@ -121,20 +122,15 @@ void getLoginFromUser(USER* userArray) {
 	fgets(password, MAX_NAME_LENGTH, stdin);
 	strtok(password, "\n");
 
-	reallocateCharArray(username, strlen(username));
-	reallocateCharArray(password, strlen(password));
-
 	validationCheck = checkCreds(username, password, userArray);
 
-	if (validationCheck){
+	if (validationCheck) {
 
 		printf("Credentials Accepted - Logging in...\n");
 
 	} else {
 
 		printf("Incorrect Credentials - Failed to log in\n");
-		free(username);
-		free(password);
 		fflush(stdin);
 		getLoginFromUser(userArray);
 

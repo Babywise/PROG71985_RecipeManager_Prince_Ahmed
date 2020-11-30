@@ -11,9 +11,7 @@
 bool checkCreds(char* username, char* password, USER* userArray) {
 
 	int sizeOfArray = getSizeOfUserArray(userArray);
-
 	int usernameResult, passwordResult;
-
 	bool validCheck = false;
 
 	for (int i = 0; i < sizeOfArray; i++) {
@@ -40,10 +38,8 @@ bool checkCreds(char* username, char* password, USER* userArray) {
 
 	if (validCheck) {
 		return true;
-
 	} else {
 		return false;
-
 	}
 
 }
