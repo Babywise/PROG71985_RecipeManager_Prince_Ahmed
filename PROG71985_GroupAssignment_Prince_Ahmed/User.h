@@ -12,12 +12,10 @@ typedef struct user {
 	char username[MAX_NAME_LENGTH];
 	char password[MAX_NAME_LENGTH];
 
-} USER, *PUSER;
+} USER;
 
 USER* getUsersFromFile();
 USER createUser(char*, char*);
 char* getUsername(USER*, int);
 char* getPassword(USER*, int);
 int getSizeOfUserArray(USER*);
-
-

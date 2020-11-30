@@ -1,5 +1,6 @@
 #include "Allocation.h"
 #include <stdlib.h>
+#include <string.h>
 
 char* allocateCharArray() {
 
@@ -13,8 +14,8 @@ char* allocateCharArray() {
 
 char* reallocateCharArray(char* str, int size) {
 
-	str = (char*)realloc(str, size * sizeof(char*));
+	char* reallocatedStr = (char*)realloc(str, size * sizeof(char*));
 
-	return str;
+	return reallocatedStr;
 
 }

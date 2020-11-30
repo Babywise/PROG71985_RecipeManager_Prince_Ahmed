@@ -133,6 +133,9 @@ void getLoginFromUser(USER* userArray) {
 	} else {
 
 		printf("Incorrect Credentials - Failed to log in\n");
+		free(username);
+		free(password);
+		fflush(stdin);
 		getLoginFromUser(userArray);
 
 	}

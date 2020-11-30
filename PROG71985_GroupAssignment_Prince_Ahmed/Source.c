@@ -24,8 +24,8 @@
  *					   - Started Input.c/.h
  *					   - Started Allocation.c/.h
  * 
- *			2020/11/16 - Fixed Login.c
- *					   - Cleaned up the console
+ *			2020/11/16 - Fixed Login.c (was previously only checking the first user's credentials).
+ *					   - Cleaned up the console.
  *
  */
 
