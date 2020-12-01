@@ -33,6 +33,12 @@ void setNextRecipeNode(PRNODE sourceRecipeNode, PRNODE newNextRecipeNode) {
 
 }
 
+RECIPE getRecipeData(PRNODE recipeNode) {
+
+	return recipeNode->recipeData;
+
+}
+
 void removeRecipeNode(PRNODE recipeNode) {
 
 	free(recipeNode);

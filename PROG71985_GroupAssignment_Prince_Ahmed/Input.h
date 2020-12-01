@@ -6,6 +6,4 @@
 
 char* getMenuInput();
 char* checkInputSize(char*);
-void getAccountOption(USER*);
-void getLoginFromUser(USER*);
-void getRecipeMenuOption();
+int getRecipeIDInput();

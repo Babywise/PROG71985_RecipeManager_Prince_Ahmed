@@ -11,4 +11,5 @@ typedef struct ingredientnode {
 PINODE createIngredientNode(INGREDIENT);
 PINODE getNextIngredientNode(PINODE);
 void setNextIngredientNode(PINODE, PINODE);
+INGREDIENT getIngredientData(PINODE);
 void removeIngredientNode(PINODE);

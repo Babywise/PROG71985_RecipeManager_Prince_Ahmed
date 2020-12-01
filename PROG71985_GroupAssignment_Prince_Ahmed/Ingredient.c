@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define NUM_OF_MEASUREMENTS 9
+
 
 #include "Ingredient.h"
 
@@ -19,16 +19,25 @@ INGREDIENT createIngredient(int id, char* ingredientName, float quantity, char* 
 
 bool compareMeasurement(char* recipeMeasurement) {
 
+	char* measurementArrForRead[NUM_OF_MEASUREMENTS_FOR_READ] = { "Tbps", "Tsp", "ml", "L", "Cups","oz", "lbs", "ToTaste", "ToSight", "Cans" }; 
 
-	char* measurement[NUM_OF_MEASUREMENTS] = { "Tbps", "Tsp", "ml", "L", "Cups","oz", "lbs", "ToTaste", "ToSight" };
-
-	for (int i = 0; i < NUM_OF_MEASUREMENTS; i++) {
+	for (int i = 0; i < NUM_OF_MEASUREMENTS_FOR_READ; i++) {
 		
-		if (strcmp(measurement[i], recipeMeasurement) == 0) {
+		if (strcmp(measurementArrForRead[i], recipeMeasurement) == 0) {
 			return true;
 		} else {
 			return false;
 		}
 		
 	}
+}
+
+char* getIngredientName(INGREDIENT ingredient) {
+	return ingredient.name;
+}
+float getIngredientQuantity(INGREDIENT ingredient) {
+	return ingredient.quantity;
+}
+char* getIngredientMeasurement(INGREDIENT ingredient) {
+	return ingredient.measurement;
 }

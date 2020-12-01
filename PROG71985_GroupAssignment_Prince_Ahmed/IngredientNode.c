@@ -33,6 +33,12 @@ void setNextIngredientNode(PINODE sourceIngredientNode, PINODE newNextIngredient
 
 }
 
+INGREDIENT getIngredientData(PINODE ingredientNode) {
+
+	return ingredientNode->ingredientData;
+
+}
+
 void removeIngredientNode(PINODE ingredientNode) {
 
 	free(ingredientNode);

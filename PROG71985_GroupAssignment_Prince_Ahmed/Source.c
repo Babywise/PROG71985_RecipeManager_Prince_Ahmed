@@ -46,13 +46,9 @@ int main(void) {
 	//displayAccountFunctions();
 	//getAccountOption(userArray);
 
-	//test for removing a recipes
-	RECIPE r = createRecipe("PIZZADOUGH");
-	removeRecipeFromList(&recipeList, r);
-	
 	//read
 	displayRecipeFunctions();
-	getRecipeMenuOption();
-
+	getRecipeMenuOption(&recipeList);
+	
 	return 0;
 }

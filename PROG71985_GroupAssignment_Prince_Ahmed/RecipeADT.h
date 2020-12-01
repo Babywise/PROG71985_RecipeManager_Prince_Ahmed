@@ -11,4 +11,8 @@ typedef struct RecipeADT {
 
 RLIST createRecipeList();
 bool addRecipeToList(PRLIST, RECIPE);
-bool removeRecipeFromList(PRLIST, RECIPE);
+bool removeRecipeFromList(PRLIST, int);
+void getRecipeListFromADT(PRLIST);
+RECIPE getRecipeFromRecipeList(PRLIST, int);
+bool checkRecipeExists(PRLIST, int);
+bool displayRecipe(PRLIST, int);

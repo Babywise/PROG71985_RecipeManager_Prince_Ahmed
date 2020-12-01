@@ -33,7 +33,7 @@ RLIST readRecipeList() {
 
 		while (fscanf(listFile, "%s", tempRecipeFileName) != EOF) {
 
-			RECIPE recipe = readRecipe(recipeList, tempRecipeFileName);
+			RECIPE recipe = readRecipe(recipeList, tempRecipeFileName, i);
 			
 			if (recipe.name != NULL) {
 				addRecipeToList(&recipeList, recipe);
@@ -49,7 +49,7 @@ RLIST readRecipeList() {
 	return recipeList;
 }
 
-RECIPE readRecipe(RLIST recipeList, char* recipeFileName) {
+RECIPE readRecipe(RLIST recipeList, char* recipeFileName, int recipeID) {
 
 	// Gets recipe directory
 	char* recipeDir = allocateCharArray();
@@ -63,11 +63,11 @@ RECIPE readRecipe(RLIST recipeList, char* recipeFileName) {
 	FILE* recipeFile = fopen(recipeDir, "r");
 
 	if (recipeFile == NULL) {
-		RECIPE r = createRecipe(NULL);
+		RECIPE r = createRecipe(NULL, NULL);
 		return r;
 	}
 
-	RECIPE tempRecipe = createRecipe(tempRecipeName);
+	RECIPE tempRecipe = createRecipe(tempRecipeName, recipeID);
 
 	int i = 0;
 
@@ -101,5 +101,24 @@ RECIPE readRecipe(RLIST recipeList, char* recipeFileName) {
 	fclose(recipeFile);
 
 	return tempRecipe;
+
+}
+
+void deleteRecipeTextFile(PRLIST recipeList, int recipeOption) {
+
+	char* removeRecipeFile = allocateCharArray();
+	char* recipeName = getRecipeName(getRecipeFromRecipeList(recipeList, recipeOption));
+	char* txt = ".txt";
+	char* dir = RECIPE_DIR;
+
+	sprintf(removeRecipeFile, "%s%s%s", RECIPE_DIR, recipeName, txt);
+	
+	if (remove(removeRecipeFile) == 0) {
+		printf("FILE: %s.txt has been removed\n", recipeName);
+	} else {
+		printf("FILE: %s.txt could not be found\n", recipeName);
+	}
+	
+	free(removeRecipeFile);
 
 }
