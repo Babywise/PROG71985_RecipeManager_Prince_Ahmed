@@ -4,8 +4,6 @@
 
 #include <stdbool.h>
 
-
-
 typedef struct recipe {
 
 	char name[MAX_NAME];
@@ -15,6 +13,6 @@ typedef struct recipe {
 }RECIPE, *PRECIPE;
 
 RECIPE createRecipe(char*);
-char* getRecipeName(RECIPE r);
+char* getRecipeName(RECIPE);
 bool compareRecipe(RECIPE, RECIPE);
 void addIngredientToRecipe(PRECIPE, INGREDIENT);

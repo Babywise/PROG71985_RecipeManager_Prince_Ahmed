@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include <stdio.h>
 
-void displayLogo(RLIST asss) {
+void displayLogo() {
 
 	int backslash = 92;
 

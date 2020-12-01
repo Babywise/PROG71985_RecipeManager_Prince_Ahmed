@@ -13,7 +13,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-PRLIST readRecipeList() {
+RLIST readRecipeList() {
 
 	RLIST recipeList = createRecipeList();
 	FILE* listFile = fopen(RECIPE_LIST_NAME, "r");
@@ -33,21 +33,20 @@ PRLIST readRecipeList() {
 
 		while (fscanf(listFile, "%s", tempRecipeFileName) != EOF) {
 
-			/*char* tempRecipeFileName = allocateCharArray();
-			file = fscanf(listFile, "%s", tempRecipeFileName) != EOF;*/
-
 			RECIPE recipe = readRecipe(recipeList, tempRecipeFileName);
 			
 			if (recipe.name != NULL) {
 				addRecipeToList(&recipeList, recipe);
 			}
+
 			i++;
 		}
+		free(tempRecipeFileName);
 	}
 
 	fclose(listFile);
 
-	return &recipeList;
+	return recipeList;
 }
 
 RECIPE readRecipe(RLIST recipeList, char* recipeFileName) {
@@ -72,20 +71,13 @@ RECIPE readRecipe(RLIST recipeList, char* recipeFileName) {
 
 	int i = 0;
 
-	char currLine[MAX_INPUT] = { "" };
-	// fscanf(recipeFile, "%s\t%s\t%s\t%s[^\n]", tempIngredientID, tempIngredientName, tempIngredientQuantity, tempIngredientMeasurment) != EOF
+	char* tempIngredientID = allocateCharArray();
+	char* tempIngredientName = allocateCharArray();
+	char* tempIngredientQuantity = allocateCharArray();
+	char* tempIngredientMeasurment = allocateCharArray();
 
-	while (fgets(currLine, MAX_INPUT, recipeFile) != NULL) {
-
-		char* tempIngredientID = allocateCharArray();
-		char* tempIngredientName = allocateCharArray();
-		char* tempIngredientQuantity = allocateCharArray();
-		char* tempIngredientMeasurment = allocateCharArray();
-
-		if (sscanf(currLine, "%s\t%s\t%s\t%s", tempIngredientID, tempIngredientName, tempIngredientQuantity, tempIngredientMeasurment) != NUM_ITEMS_IN_INGREDIENT) {
-			break;
-		}
-		
+	while (fscanf(recipeFile, "%s\t%s\t%s\t%s[^\n]", tempIngredientID, tempIngredientName, tempIngredientQuantity, tempIngredientMeasurment) != EOF){
+			
 		// Convert char* to proper types
 		int ingredientID = atoi(tempIngredientID);
 		tempIngredientName = reallocateCharArray(tempIngredientName, strlen(tempIngredientName));
@@ -97,13 +89,13 @@ RECIPE readRecipe(RLIST recipeList, char* recipeFileName) {
 
 		addIngredientToRecipe(&(tempRecipe), ingredient);
 
-		free(tempIngredientID);
-		free(tempIngredientName);
-		free(tempIngredientQuantity);
-		free(tempIngredientMeasurment);
 		i++;
 	}
 
+	free(tempIngredientID);
+	free(tempIngredientName);
+	free(tempIngredientQuantity);
+	free(tempIngredientMeasurment);
 	
 	free(recipeDir);
 	fclose(recipeFile);

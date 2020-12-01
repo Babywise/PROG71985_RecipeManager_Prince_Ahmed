@@ -40,17 +40,19 @@
 
 int main(void) {
 	//USER* userArray = getUsersFromFile();
-	//RECIPE p = createRecipe("SoyGingerGlaze");
-	PRLIST recipeList = readRecipeList();
+
+	RLIST recipeList = readRecipeList();
 	displayLogo();
 	//displayAccountFunctions();
 	//getAccountOption(userArray);
+
+	//test for removing a recipes
+	RECIPE r = createRecipe("PIZZADOUGH");
+	removeRecipeFromList(&recipeList, r);
 	
 	//read
 	displayRecipeFunctions();
 	getRecipeMenuOption();
-
-	
 
 	return 0;
 }

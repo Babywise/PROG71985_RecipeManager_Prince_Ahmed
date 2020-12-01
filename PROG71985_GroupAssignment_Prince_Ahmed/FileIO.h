@@ -1,5 +1,5 @@
 #pragma once
 #include "RecipeADT.h"
 
-PRLIST readRecipeList();
+RLIST readRecipeList();
 RECIPE readRecipe(RLIST, char*);
