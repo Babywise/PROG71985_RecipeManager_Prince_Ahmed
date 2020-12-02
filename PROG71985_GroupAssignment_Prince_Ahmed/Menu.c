@@ -112,136 +112,105 @@ void displayRecipeFunctions() {
 
 bool getRecipeMenuOption(PRLIST recipeList) {
 
-	//char* userOption;
-	//bool validOption = false;
-
-	//do {
-
-		char* userOption = getMenuInput();
-		char* userOptionRemoved = checkInputSize(userOption);
+	char* userOption = getMenuInput();
+	char* userOptionRemoved = checkInputSize(userOption);
 		
-		int sizeOfInput = 0;
-		// counts size of input from user
-		for (int i = 0; i < strlen(userOption); i++) {
-			if (userOptionRemoved == '\n') {
-				userOptionRemoved = NULL;
-			} else if (i > MAX_ACCEPTABLE_INPUT) {
-				userOptionRemoved = NULL;
+	int sizeOfInput = 0;
+	// counts size of input from user
+	for (int i = 0; i < strlen(userOption); i++) {
+		if (userOptionRemoved == '\n') {
+			userOptionRemoved = NULL;
+		} else if (i > MAX_ACCEPTABLE_INPUT) {
+			userOptionRemoved = NULL;
+		}
+	}
+	int recipeOption = 1;
+	switch (*userOptionRemoved) {
+	case 'A':
+		displayRecipeList(recipeList);
+		printf("\nPlease select a recipe ID: ");
+		recipeOption = getRecipeIDInput();
+
+		if (!displayRecipe(recipeList, recipeOption)) {
+			printf("\nThis recipe doesn't exist\n");
+		}
+
+		free(userOption);
+		return true;
+
+	case 'B':
+		displayRecipeList(recipeList);
+		printf("\nPlease select the first recipe ID: ");
+		int recipeOption1 = getRecipeIDInput();
+		printf("Please select the second recipe ID: ");
+		int recipeOption2 = getRecipeIDInput();
+
+		for (recipeOption1; recipeOption1 <= recipeOption2; recipeOption1++) {
+			if (!displayRecipe(recipeList, recipeOption1)) {
+				break;
 			}
 		}
-		int recipeOption = 1;
-		switch (*userOptionRemoved) {
-		case 'A':
-			//validOption = true;
-			displayRecipeList(recipeList);
-			printf("\nPlease select a recipe ID: ");
-			recipeOption = getRecipeIDInput();
 
+		free(userOption);
+		return true;
+
+	case 'C':
+		do {
 			if (!displayRecipe(recipeList, recipeOption)) {
-				printf("\nThis recipe doesn't exist\n");
+				break;
 			}
-			//break;
-			free(userOption);
-			return true;
+			recipeOption++;
+		} while (true);
 
-		case 'B':
-			//validOption = true;
-			displayRecipeList(recipeList);
-			printf("\nPlease select the first recipe ID: ");
-			int recipeOption1 = getRecipeIDInput();
-			printf("Please select the second recipe ID: ");
-			int recipeOption2 = getRecipeIDInput();
+		free(userOption);
+		return true;
 
-			for (recipeOption1; recipeOption1 <= recipeOption2; recipeOption1++) {
-				if (!displayRecipe(recipeList, recipeOption1)) {
-					break;
-				}
-			}
-			//break;
-			free(userOption);
-			return true;
+	case 'D':
+		free(userOption);
+		return true;
 
-		case 'C':
-			//validOption = true;
-			do {
-				if (!displayRecipe(recipeList, recipeOption)) {
-					break;
-				}
-				recipeOption++;
-			} while (true);
-			//break;
-			free(userOption);
-			return true;
+	case 'E':
+		displayRecipeList(recipeList);
+		printf("\nPlease select an ID to edit a recipe: ");
+		recipeOption = getRecipeIDInput();
 
-		case 'D':
-			//validOption = true;
-			//createNewRecipe
-			//break;
-			//free(recipeOption);
-			free(userOption);
-			return true;
-		case 'E':
-			//validOption = true;
-			displayRecipeList(recipeList);
-			printf("\nPlease select an ID to edit a recipe: ");
-			recipeOption = getRecipeIDInput();
+		//more here
 
+		free(userOption);
+		return true;
 
+	case 'F':
+		displayRecipeList(recipeList);
+		printf("\nPlease select an ID to delete a recipe: ");
+		recipeOption = getRecipeIDInput();
 
-			//editRecipe
-			//break;
-			free(userOption);
-			return true;
-
-		case 'F':
-			//validOption = true;
-			displayRecipeList(recipeList);
-			printf("\nPlease select an ID to delete a recipe: ");
-			recipeOption = getRecipeIDInput();
-
-			if (checkRecipeExists(recipeList, recipeOption)) {
-				deleteRecipeTextFile(recipeList, recipeOption);
-				removeRecipeFromList(recipeList, recipeOption);
-			} else {
-				printf("\nThis recipe doesn't exist\n");
-			}
-			//break;
-			free(userOption);
-			return true;
-
-		case 'G':
-			//validOption = true;
-			//searchRecipe
-			//break;
-			free(userOption);
-			return true;
-
-		case 'H':
-			//validOption = true;
-			//sortRecipe
-			//break;
-			free(userOption);
-			return true;
-
-		case 'I':
-			//validOption = true;
-			//exit(EXIT_SUCCESS);
-			//break;
-			free(userOption);
-			return false;
-
-		default:
-			printf("\nPlease enter a valid option: ");
-			//validOption = false;
-			//break;
-			free(userOption);
-			return true;
+		if (checkRecipeExists(recipeList, recipeOption)) {
+			deleteRecipeTextFile(recipeList, recipeOption);
+			removeRecipeFromList(recipeList, recipeOption);
+		} else {
+			printf("\nThis recipe doesn't exist\n");
 		}
+		free(userOption);
+		return true;
 
-		//free(userOption);
+	case 'G':
+		free(userOption);
+		return true;
 
-	//} while (!validOption);
+	case 'H':
+		free(userOption);
+		return true;
 
+	case 'I':
+		free(userOption);
+		return false;
+
+	default:
+		printf("Please enter a valid option: ");
+		getRecipeMenuOption(recipeList);
+		free(userOption);
+		return true;
+	}
 }
 
 

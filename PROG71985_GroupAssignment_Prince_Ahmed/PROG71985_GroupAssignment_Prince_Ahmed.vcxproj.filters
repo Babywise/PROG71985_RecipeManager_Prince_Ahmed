@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dirent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Recipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>

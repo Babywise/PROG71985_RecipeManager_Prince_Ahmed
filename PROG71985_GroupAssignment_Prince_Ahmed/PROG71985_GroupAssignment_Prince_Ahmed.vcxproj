@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClInclude Include="Allocation.h" />
     <ClInclude Include="Cuisine.h" />
-    <ClInclude Include="dirent.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Ingredient.h" />
     <ClInclude Include="IngredientADT.h" />
