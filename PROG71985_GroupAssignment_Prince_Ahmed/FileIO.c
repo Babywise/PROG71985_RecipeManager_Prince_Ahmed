@@ -62,8 +62,7 @@ PRECIPE readRecipe(RLIST recipeList, char* recipeFileName, int recipeID) {
 	FILE* recipeFile = fopen(recipeDir, "r");
 
 	if (recipeFile == NULL) {
-		PRECIPE r = NULL;
-		return r;
+		return NULL;
 	}
 
 	RECIPE tempRecipe = createRecipe(tempRecipeName, recipeID);
