@@ -33,13 +33,12 @@ RLIST readRecipeList() {
 
 		while (fscanf(listFile, "%s", tempRecipeFileName) != EOF) {
 
-			RECIPE recipe = readRecipe(recipeList, tempRecipeFileName, i);
+			PRECIPE recipe = readRecipe(recipeList, tempRecipeFileName, i);
 			
-			if (recipe.name != NULL) {
-				addRecipeToList(&recipeList, recipe);
+			if (recipe != NULL) {
+				addRecipeToList(&recipeList, *recipe);
+				i++;
 			}
-
-			i++;
 		}
 		free(tempRecipeFileName);
 	}
@@ -49,7 +48,7 @@ RLIST readRecipeList() {
 	return recipeList;
 }
 
-RECIPE readRecipe(RLIST recipeList, char* recipeFileName, int recipeID) {
+PRECIPE readRecipe(RLIST recipeList, char* recipeFileName, int recipeID) {
 
 	// Gets recipe directory
 	char* recipeDir = allocateCharArray();
@@ -63,7 +62,7 @@ RECIPE readRecipe(RLIST recipeList, char* recipeFileName, int recipeID) {
 	FILE* recipeFile = fopen(recipeDir, "r");
 
 	if (recipeFile == NULL) {
-		RECIPE r = createRecipe(NULL, NULL);
+		PRECIPE r = NULL;
 		return r;
 	}
 
@@ -100,25 +99,27 @@ RECIPE readRecipe(RLIST recipeList, char* recipeFileName, int recipeID) {
 	free(recipeDir);
 	fclose(recipeFile);
 
-	return tempRecipe;
+	return &tempRecipe;
 
 }
 
 void deleteRecipeTextFile(PRLIST recipeList, int recipeOption) {
 
-	char* removeRecipeFile = allocateCharArray();
-	char* recipeName = getRecipeName(*getRecipeFromRecipeList(recipeList, recipeOption));
-	char* txt = ".txt";
-	char* dir = RECIPE_DIR;
-
-	sprintf(removeRecipeFile, "%s%s%s", RECIPE_DIR, recipeName, txt);
-	
-	if (remove(removeRecipeFile) == 0) {
-		printf("FILE: %s.txt has been removed\n", recipeName);
+	if (getRecipeFromRecipeList(recipeList, recipeOption) == NULL) {
+		printf("Recipe not Found\n");//atm doesnt get used at all even in testing
 	} else {
-		printf("FILE: %s.txt could not be found\n", recipeName);
-	}
-	
-	free(removeRecipeFile);
+		char* removeRecipeFile = allocateCharArray();
+		char* recipeName = getRecipeName(*getRecipeFromRecipeList(recipeList, recipeOption));
+		char* txt = ".txt";
+		char* dir = RECIPE_DIR;
 
+		sprintf(removeRecipeFile, "%s%s%s", RECIPE_DIR, recipeName, txt);
+
+		if (remove(removeRecipeFile) == 0) {
+			printf("FILE: %s.txt has been removed\n", recipeName);
+		} else {
+			printf("FILE: %s.txt could not be found\n", recipeName);
+		}
+		free(removeRecipeFile);
+	}
 }
