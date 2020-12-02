@@ -92,7 +92,7 @@ void getAccountOption(USER* userArray) {
 
 void displayRecipeFunctions() {
 	
-	printf("Choose a function:\n\n");
+	printf("Recipe functions:\n\n");
 	printf("a) Display a single recipe\n"
 			"b) Display a range of recipes\n"
 			"c) Display all recipes\n"
@@ -104,7 +104,8 @@ void displayRecipeFunctions() {
 			"g) Search for an existing recipe\n"
 			"h) Sort existing recipes (????????)\n"
 			"\n"
-			"i) Quit\n");
+			"i) Quit\n\n");
+	printf("Choose a function: ");
 
 }
 
@@ -145,7 +146,7 @@ void getRecipeMenuOption(PRLIST recipeList) {
 			displayRecipeList(recipeList);
 			printf("\nPlease select the first recipe ID: ");
 			int recipeOption1 = getRecipeIDInput();
-			printf("\nPlease select the second recipe ID: ");
+			printf("Please select the second recipe ID: ");
 			int recipeOption2 = getRecipeIDInput();
 
 			for (recipeOption1; recipeOption1 <= recipeOption2; recipeOption1++) {
@@ -163,7 +164,6 @@ void getRecipeMenuOption(PRLIST recipeList) {
 				}
 				recipeOption++;
 			} while (true);
-
 			break;
 
 		case 'D':
@@ -186,11 +186,9 @@ void getRecipeMenuOption(PRLIST recipeList) {
 			if (checkRecipeExists(recipeList, recipeOption)) {
 				deleteRecipeTextFile(recipeList, recipeOption);
 				removeRecipeFromList(recipeList, recipeOption);
-	
 			} else {
 				printf("\nThis recipe doesn't exist\n");
 			}
-			
 			break;
 
 		case 'G':

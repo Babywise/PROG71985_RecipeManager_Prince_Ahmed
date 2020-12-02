@@ -8,7 +8,6 @@ typedef struct recipe {
 
 	int id;
 	char name[MAX_NAME];
-	//INGREDIENT ingredientArray[MAX_INGREDIENTS];
 	ILIST ingredientArray;
 
 }RECIPE, *PRECIPE;

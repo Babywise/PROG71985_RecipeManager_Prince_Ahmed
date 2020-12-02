@@ -14,39 +14,30 @@ ILIST createIngredientList() {
 bool addIngredientToList(PILIST thisIngredientList, INGREDIENT thisIngredient) {
 
 	PINODE newNode = createIngredientNode(thisIngredient);
-
 	if (!newNode) {
 		return false;
 	}
-	//if list is empty
+	//if ingredient list is empty
 	if (thisIngredientList->list == NULL) {
 		setNextIngredientNode(newNode, thisIngredientList->list);
 		thisIngredientList->list = newNode;
 	} else {
-
 		PINODE currNode = thisIngredientList->list;
-
+		//find the last node
 		while (getNextIngredientNode(currNode) != NULL) {
 			currNode = getNextIngredientNode(currNode);
 		}
-
 		setNextIngredientNode(currNode, newNode);
-
 	}
-
 	return true;
-
 }
 
 bool displayIngredients(PILIST thisIngredientList) {
 
 	if (thisIngredientList->list == NULL) {
-
 		printf("Err: No ingredients found");
 		return false;;
-
 	} else {
-
 		PINODE currNode = thisIngredientList->list;
 		PINODE tempNode = thisIngredientList->list;
 
@@ -55,46 +46,39 @@ bool displayIngredients(PILIST thisIngredientList) {
 		char* currIngredientMeasurement = "";
 		
 		while (currNode != NULL) {
-
 			char* currIngredientName = getIngredientName(getIngredientData(currNode));
 			float currIngredientQuantity = getIngredientQuantity(getIngredientData(currNode));
 			char* currIngredientMeasurement = getIngredientMeasurement(getIngredientData(currNode));
 
 			char biggestIngredientName[MAX_NAME] = { "" };
-			int maxSize = 0;
+			int biggestIngredientSize = 0;
 			while (tempNode != NULL) {
-
 				char* tempIngredientName = getIngredientName(getIngredientData(tempNode));
-
 				if (getNextIngredientNode(tempNode) != NULL) {
-
 					char* tempNextIngredientName = getIngredientName(getIngredientData(getNextIngredientNode(tempNode)));
 
 					if (strlen(biggestIngredientName) < strlen(tempIngredientName)) {
 						strcpy(biggestIngredientName, tempIngredientName);
-						maxSize = strlen(biggestIngredientName);
+						biggestIngredientSize = strlen(biggestIngredientName);
+
 					} else if (strlen(biggestIngredientName) < strlen(tempNextIngredientName)) {
 						strcpy(biggestIngredientName, tempNextIngredientName);
-						maxSize = strlen(biggestIngredientName);
+						biggestIngredientSize = strlen(biggestIngredientName);
 					}
 				}
 				tempNode = getNextIngredientNode(tempNode);
 			}
-
 			int currIngredientNameSize = strlen(currIngredientName);
-
-			while (currIngredientNameSize < maxSize) {
+			while (currIngredientNameSize < biggestIngredientSize) {
 				strcat(currIngredientName, " ");
 				currIngredientNameSize++;
 			}
-
 			printf("\t%s\t%0.2f\t%s\n", currIngredientName, currIngredientQuantity, currIngredientMeasurement);
 			
 			currNode = getNextIngredientNode(currNode);
 			tempNode = thisIngredientList->list;
 		}
 		return true;
-
 	}
 	return false;
 }

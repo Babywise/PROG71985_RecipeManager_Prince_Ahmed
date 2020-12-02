@@ -22,7 +22,7 @@ int getRecipeID(RECIPE recipe) {
 }
 
 PILIST getIngredientList(RECIPE recipe) {
-	return &recipe.ingredientArray;
+	return &(recipe.ingredientArray);
 }
 
 //bool compareRecipe(RECIPE a, RECIPE b) {
@@ -42,8 +42,6 @@ bool compareRecipeID(RECIPE recipe, int id) {
 }
 
 void addIngredientToRecipe(PRECIPE thisRecipe, INGREDIENT thisIngredient) {
-
 	addIngredientToList(&thisRecipe->ingredientArray, thisIngredient);
-
 }
 
