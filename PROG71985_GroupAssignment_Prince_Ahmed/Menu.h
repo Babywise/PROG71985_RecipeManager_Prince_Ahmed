@@ -4,10 +4,11 @@
 #include "Input.h"
 #include "Login.h"
 #include "FileIO.h"
+#include <stdbool.h>
 
 void displayLogo();
 void displayAccountFunctions();
 void getAccountOption(USER*);
 void displayRecipeFunctions();
-void getRecipeMenuOption(PRLIST);
+bool getRecipeMenuOption(PRLIST);
 void displayRecipeList(PRLIST);

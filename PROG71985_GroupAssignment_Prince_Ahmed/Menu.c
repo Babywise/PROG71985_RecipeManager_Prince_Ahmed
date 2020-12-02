@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "Menu.h"
 #include <stdio.h>
 #include <string.h>
@@ -92,7 +93,7 @@ void getAccountOption(USER* userArray) {
 
 void displayRecipeFunctions() {
 	
-	printf("Recipe functions:\n\n");
+	printf("\nRecipe functions:\n\n");
 	printf("a) Display a single recipe\n"
 			"b) Display a range of recipes\n"
 			"c) Display all recipes\n"
@@ -109,16 +110,16 @@ void displayRecipeFunctions() {
 
 }
 
-void getRecipeMenuOption(PRLIST recipeList) {
+bool getRecipeMenuOption(PRLIST recipeList) {
 
-	char* userOption;
-	bool validOption = false;
+	//char* userOption;
+	//bool validOption = false;
 
-	do {
+	//do {
 
 		char* userOption = getMenuInput();
 		char* userOptionRemoved = checkInputSize(userOption);
-
+		
 		int sizeOfInput = 0;
 		// counts size of input from user
 		for (int i = 0; i < strlen(userOption); i++) {
@@ -131,7 +132,7 @@ void getRecipeMenuOption(PRLIST recipeList) {
 		int recipeOption = 1;
 		switch (*userOptionRemoved) {
 		case 'A':
-			validOption = true;
+			//validOption = true;
 			displayRecipeList(recipeList);
 			printf("\nPlease select a recipe ID: ");
 			recipeOption = getRecipeIDInput();
@@ -139,10 +140,12 @@ void getRecipeMenuOption(PRLIST recipeList) {
 			if (!displayRecipe(recipeList, recipeOption)) {
 				printf("\nThis recipe doesn't exist\n");
 			}
-			break;
+			//break;
+			free(userOption);
+			return true;
 
 		case 'B':
-			validOption = true;
+			//validOption = true;
 			displayRecipeList(recipeList);
 			printf("\nPlease select the first recipe ID: ");
 			int recipeOption1 = getRecipeIDInput();
@@ -154,31 +157,44 @@ void getRecipeMenuOption(PRLIST recipeList) {
 					break;
 				}
 			}
-			break;
+			//break;
+			free(userOption);
+			return true;
 
 		case 'C':
-			validOption = true;
+			//validOption = true;
 			do {
 				if (!displayRecipe(recipeList, recipeOption)) {
 					break;
 				}
 				recipeOption++;
 			} while (true);
-			break;
+			//break;
+			free(userOption);
+			return true;
 
 		case 'D':
-			validOption = true;
+			//validOption = true;
 			//createNewRecipe
-			break;
-
+			//break;
+			//free(recipeOption);
+			free(userOption);
+			return true;
 		case 'E':
-			//displayRecipeList();
-			validOption = true;
+			//validOption = true;
+			displayRecipeList(recipeList);
+			printf("\nPlease select an ID to edit a recipe: ");
+			recipeOption = getRecipeIDInput();
+
+
+
 			//editRecipe
-			break;
+			//break;
+			free(userOption);
+			return true;
 
 		case 'F':
-			validOption = true;
+			//validOption = true;
 			displayRecipeList(recipeList);
 			printf("\nPlease select an ID to delete a recipe: ");
 			recipeOption = getRecipeIDInput();
@@ -189,39 +205,49 @@ void getRecipeMenuOption(PRLIST recipeList) {
 			} else {
 				printf("\nThis recipe doesn't exist\n");
 			}
-			break;
+			//break;
+			free(userOption);
+			return true;
 
 		case 'G':
-			validOption = true;
+			//validOption = true;
 			//searchRecipe
-			break;
+			//break;
+			free(userOption);
+			return true;
 
 		case 'H':
-			validOption = true;
+			//validOption = true;
 			//sortRecipe
-			break;
+			//break;
+			free(userOption);
+			return true;
 
 		case 'I':
-			validOption = true;
-			exit(EXIT_SUCCESS);
-			break;
+			//validOption = true;
+			//exit(EXIT_SUCCESS);
+			//break;
+			free(userOption);
+			return false;
 
 		default:
-			printf("Please enter a valid option: ");
-			validOption = false;
-			break;
+			printf("\nPlease enter a valid option: ");
+			//validOption = false;
+			//break;
+			free(userOption);
+			return true;
 		}
 
-		free(userOption);
+		//free(userOption);
 
-	} while (!validOption);
+	//} while (!validOption);
 
 }
 
 
 void displayRecipeList(PRLIST recipeList) {
 
-	printf("Here are your recipes: \n\n");
+	printf("\nHere are your recipes: \n\n");
 	getRecipeListFromADT(recipeList);
 
 }

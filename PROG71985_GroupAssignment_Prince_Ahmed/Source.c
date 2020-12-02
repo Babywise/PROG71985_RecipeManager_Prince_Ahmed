@@ -37,18 +37,21 @@
 
 
 #include <stdio.h>
+#include <stdbool.h>
 
 int main(void) {
 	//USER* userArray = getUsersFromFile();
-
+	//read
 	RLIST recipeList = readRecipeList();
 	displayLogo();
 	//displayAccountFunctions();
 	//getAccountOption(userArray);
 
-	//read
-	displayRecipeFunctions();
-	getRecipeMenuOption(&recipeList);
-	
+	bool validOption = true;
+	do {
+		displayRecipeFunctions();
+		validOption = getRecipeMenuOption(&recipeList);
+	} while(validOption);
+
 	return 0;
 }

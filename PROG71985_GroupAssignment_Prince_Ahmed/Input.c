@@ -30,7 +30,7 @@ char* getMenuInput() {
 			userInput[i] = toupper(ch);
 			i++;
 
-			//input should a single char but if a word longer than 1 bytes is entered (like 'abort') size of input allowed is increased by x2
+			//input should a single char but if a word longer than 1 byte is entered, userInput is reallocated
 			//if i reaches max expected input (maxCount) buffer for char seatSelection is realloced by x2, 
 			if (i == maxCount) {
 
@@ -82,6 +82,7 @@ int getRecipeIDInput() {
 	char* userInput = getMenuInput();
 	userInput = checkInputSize(userInput);
 	int userInputAsInt = atoi(userInput);
+	free(userInput);
 	return userInputAsInt;
 
 }
