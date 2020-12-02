@@ -28,11 +28,8 @@ bool addRecipeToList(PRLIST thisRecipeList, RECIPE thisRecipe) {
 		}
 
 		setNextRecipeNode(currNode, newNode);
-
+		return true;
 	}
-
-	return true;
-
 }
 
 bool removeRecipeFromList(PRLIST thisRecipeList, int recipeIDToBeDeleted) {
@@ -61,10 +58,8 @@ bool removeRecipeFromList(PRLIST thisRecipeList, int recipeIDToBeDeleted) {
 	}
 
 	setNextRecipeNode(prev, getNextRecipeNode(current));
-
 	removeRecipeNode(current);
 	return true;
-
 }
 
 void getRecipeListFromADT(PRLIST thisRecipeList) {
@@ -93,7 +88,6 @@ PRECIPE getRecipeFromRecipeList(PRLIST thisRecipeList, int recipeOption) {
 	if (thisRecipeList->list == NULL) {
 
 		printf("Err: No recipes found");
-		//return createRecipe("", NULL);
 		return NULL;
 
 	} else {
@@ -107,9 +101,8 @@ PRECIPE getRecipeFromRecipeList(PRLIST thisRecipeList, int recipeOption) {
 			}
 			currNode = getNextRecipeNode(currNode);
 		}
+		return NULL;
 	}
-	//return createRecipe("", NULL);
-	return NULL;
 }
 
 bool checkRecipeExists(PRLIST thisRecipeList, int recipeOption) {
@@ -130,8 +123,8 @@ bool checkRecipeExists(PRLIST thisRecipeList, int recipeOption) {
 			}
 			currNode = getNextRecipeNode(currNode);
 		}
+		return false;
 	}
-	return false;
 }
 
 bool displayRecipe(PRLIST thisRecipeList, int recipeOption) {
@@ -155,6 +148,6 @@ bool displayRecipe(PRLIST thisRecipeList, int recipeOption) {
 			}
 			currNode = getNextRecipeNode(currNode);
 		}
+		return false;
 	}
-	return false;
 }

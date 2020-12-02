@@ -28,8 +28,8 @@ bool addIngredientToList(PILIST thisIngredientList, INGREDIENT thisIngredient) {
 			currNode = getNextIngredientNode(currNode);
 		}
 		setNextIngredientNode(currNode, newNode);
+		return true;
 	}
-	return true;
 }
 
 bool displayIngredients(PILIST thisIngredientList) {
@@ -80,5 +80,4 @@ bool displayIngredients(PILIST thisIngredientList) {
 		}
 		return true;
 	}
-	return false;
 }
