@@ -33,9 +33,9 @@ void setNextRecipeNode(PRNODE sourceRecipeNode, PRNODE newNextRecipeNode) {
 
 }
 
-RECIPE getRecipeData(PRNODE recipeNode) {
+PRECIPE getRecipeData(PRNODE recipeNode) {
 
-	return recipeNode->recipeData;
+	return &(recipeNode->recipeData);
 
 }
 

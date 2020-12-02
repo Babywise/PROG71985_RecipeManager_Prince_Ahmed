@@ -80,20 +80,21 @@ void getRecipeListFromADT(PRLIST thisRecipeList) {
 
 		while (currNode != NULL) {
 
-			char* currRecipeName = getRecipeName(getRecipeData(currNode));
-			int currRecipeID = getRecipeID(getRecipeData(currNode));
+			char* currRecipeName = getRecipeName(*getRecipeData(currNode));
+			int currRecipeID = getRecipeID(*getRecipeData(currNode));
 			printf("%d) %s\n", currRecipeID + 1, currRecipeName);
 			currNode = getNextRecipeNode(currNode);
 		}
 	}
 }
 
-RECIPE getRecipeFromRecipeList(PRLIST thisRecipeList, int recipeOption) {
+PRECIPE getRecipeFromRecipeList(PRLIST thisRecipeList, int recipeOption) {
 
 	if (thisRecipeList->list == NULL) {
 
 		printf("Err: No recipes found");
-		return createRecipe("", NULL);
+		//return createRecipe("", NULL);
+		return NULL;
 
 	} else {
 
@@ -101,13 +102,14 @@ RECIPE getRecipeFromRecipeList(PRLIST thisRecipeList, int recipeOption) {
 
 		while (currNode != NULL) {
 
-			if (compareRecipeID(getRecipeData(currNode), recipeOption)) {
+			if (compareRecipeID(*getRecipeData(currNode), recipeOption - 1)) {
 				return getRecipeData(currNode);
 			}
 			currNode = getNextRecipeNode(currNode);
 		}
 	}
-	return createRecipe("", NULL);
+	//return createRecipe("", NULL);
+	return NULL;
 }
 
 bool checkRecipeExists(PRLIST thisRecipeList, int recipeOption) {
@@ -123,7 +125,7 @@ bool checkRecipeExists(PRLIST thisRecipeList, int recipeOption) {
 
 		while (currNode != NULL) {
 
-			if (compareRecipeID(getRecipeData(currNode), recipeOption)) {
+			if (compareRecipeID(*getRecipeData(currNode), recipeOption - 1)) {
 				return true;
 			}
 			currNode = getNextRecipeNode(currNode);
@@ -145,10 +147,10 @@ bool displayRecipe(PRLIST thisRecipeList, int recipeOption) {
 
 		while (currNode != NULL) {
 
-			if (compareRecipeID(getRecipeData(currNode), recipeOption - 1)) {
-				char* currRecipeName = getRecipeName(getRecipeData(currNode));
+			if (compareRecipeID(*getRecipeData(currNode), recipeOption - 1)) {
+				char* currRecipeName = getRecipeName(*getRecipeData(currNode));
 				printf("\n%s:\n", currRecipeName);
-				displayIngredients(getIngredientList(getRecipeData(currNode)));
+				displayIngredients(getIngredientList(*getRecipeData(currNode)));
 				return true;
 			}
 			currNode = getNextRecipeNode(currNode);

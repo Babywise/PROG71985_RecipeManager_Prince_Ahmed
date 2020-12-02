@@ -11,5 +11,5 @@ typedef struct recipenode {
 PRNODE createRecipeNode(RECIPE);
 PRNODE getNextRecipeNode(PRNODE);
 void setNextRecipeNode(PRNODE, PRNODE);
-RECIPE getRecipeData(PRNODE);
+PRECIPE getRecipeData(PRNODE);
 void removeRecipeNode(PRNODE);

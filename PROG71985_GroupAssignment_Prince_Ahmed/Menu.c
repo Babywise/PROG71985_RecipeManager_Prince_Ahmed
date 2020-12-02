@@ -247,7 +247,7 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 
 void displayRecipeList(PRLIST recipeList) {
 
-	printf("\nHere are your recipes: \n\n");
+	printf("\nRecipe list: \n\n");
 	getRecipeListFromADT(recipeList);
 
 }

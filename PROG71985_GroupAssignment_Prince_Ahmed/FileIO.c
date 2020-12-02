@@ -107,7 +107,7 @@ RECIPE readRecipe(RLIST recipeList, char* recipeFileName, int recipeID) {
 void deleteRecipeTextFile(PRLIST recipeList, int recipeOption) {
 
 	char* removeRecipeFile = allocateCharArray();
-	char* recipeName = getRecipeName(getRecipeFromRecipeList(recipeList, recipeOption));
+	char* recipeName = getRecipeName(*getRecipeFromRecipeList(recipeList, recipeOption));
 	char* txt = ".txt";
 	char* dir = RECIPE_DIR;
 
