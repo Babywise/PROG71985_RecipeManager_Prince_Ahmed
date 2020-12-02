@@ -53,22 +53,46 @@ bool displayIngredients(PILIST thisIngredientList) {
 		char* currIngredientName = "";
 		float currIngredientQuantity = 0.0f;
 		char* currIngredientMeasurement = "";
-
-		char* tempIngredientName = "";
-		int tempIngredientNameSize = 0;
 		
-		while (currNode != NULL) { 
+		while (currNode != NULL) {
 
 			char* currIngredientName = getIngredientName(getIngredientData(currNode));
 			float currIngredientQuantity = getIngredientQuantity(getIngredientData(currNode));
 			char* currIngredientMeasurement = getIngredientMeasurement(getIngredientData(currNode));
 
+			char biggestIngredientName[MAX_NAME] = { "" };
+			int maxSize = 0;
+			while (tempNode != NULL) {
+
+				char* tempIngredientName = getIngredientName(getIngredientData(tempNode));
+
+				if (getNextIngredientNode(tempNode) != NULL) {
+
+					char* tempNextIngredientName = getIngredientName(getIngredientData(getNextIngredientNode(tempNode)));
+
+					if (strlen(biggestIngredientName) < strlen(tempIngredientName)) {
+						strcpy(biggestIngredientName, tempIngredientName);
+						maxSize = strlen(biggestIngredientName);
+					} else if (strlen(biggestIngredientName) < strlen(tempNextIngredientName)) {
+						strcpy(biggestIngredientName, tempNextIngredientName);
+						maxSize = strlen(biggestIngredientName);
+					}
+				}
+				tempNode = getNextIngredientNode(tempNode);
+			}
+
+			int currIngredientNameSize = strlen(currIngredientName);
+
+			while (currIngredientNameSize < maxSize) {
+				strcat(currIngredientName, " ");
+				currIngredientNameSize++;
+			}
+
 			printf("\t%s\t%0.2f\t%s\n", currIngredientName, currIngredientQuantity, currIngredientMeasurement);
 			
 			currNode = getNextIngredientNode(currNode);
-
+			tempNode = thisIngredientList->list;
 		}
-
 		return true;
 
 	}

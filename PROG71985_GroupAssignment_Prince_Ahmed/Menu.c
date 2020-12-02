@@ -95,7 +95,7 @@ void displayRecipeFunctions() {
 	printf("Choose a function:\n\n");
 	printf("a) Display a single recipe\n"
 			"b) Display a range of recipes\n"
-			"c) Display all recipes (prepare for operation rape eyes)\n"
+			"c) Display all recipes\n"
 			"\n"
 			"d) Create a new recipe\n"
 			"e) Edit an exisiting recipe\n"
@@ -127,7 +127,7 @@ void getRecipeMenuOption(PRLIST recipeList) {
 				userOptionRemoved = NULL;
 			}
 		}
-		int recipeOption;
+		int recipeOption = 1;
 		switch (*userOptionRemoved) {
 		case 'A':
 			validOption = true;
@@ -138,23 +138,32 @@ void getRecipeMenuOption(PRLIST recipeList) {
 			if (!displayRecipe(recipeList, recipeOption)) {
 				printf("\nThis recipe doesn't exist\n");
 			}
-
-			//recipeOption = getMenuInput();
-			//displaySingleRecipe(recipeList, userOption);
 			break;
 
 		case 'B':
 			validOption = true;
-			//displayRecipeList();
-			//recipeOption = getMenuInput();
-			//displayRangeRecipe();
+			displayRecipeList(recipeList);
+			printf("\nPlease select the first recipe ID: ");
+			int recipeOption1 = getRecipeIDInput();
+			printf("\nPlease select the second recipe ID: ");
+			int recipeOption2 = getRecipeIDInput();
+
+			for (recipeOption1; recipeOption1 <= recipeOption2; recipeOption1++) {
+				if (!displayRecipe(recipeList, recipeOption1)) {
+					break;
+				}
+			}
 			break;
 
 		case 'C':
 			validOption = true;
-			//displayRecipeList();
-			//recipeOption = getMenuInput();
-			//displayAllRecipe();
+			do {
+				if (!displayRecipe(recipeList, recipeOption)) {
+					break;
+				}
+				recipeOption++;
+			} while (true);
+
 			break;
 
 		case 'D':
@@ -175,7 +184,6 @@ void getRecipeMenuOption(PRLIST recipeList) {
 			recipeOption = getRecipeIDInput();
 
 			if (checkRecipeExists(recipeList, recipeOption)) {
-				//getRecipeFromRecipeList(recipeList, recipeOption);
 				deleteRecipeTextFile(recipeList, recipeOption);
 				removeRecipeFromList(recipeList, recipeOption);
 	

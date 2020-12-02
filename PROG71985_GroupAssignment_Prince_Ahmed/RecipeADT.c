@@ -82,7 +82,7 @@ void getRecipeListFromADT(PRLIST thisRecipeList) {
 
 			char* currRecipeName = getRecipeName(getRecipeData(currNode));
 			int currRecipeID = getRecipeID(getRecipeData(currNode));
-			printf("%d) %s\n", currRecipeID, currRecipeName);
+			printf("%d) %s\n", currRecipeID + 1, currRecipeName);
 			currNode = getNextRecipeNode(currNode);
 
 		}
@@ -146,7 +146,7 @@ bool displayRecipe(PRLIST thisRecipeList, int recipeOption) {
 		PRNODE currNode = thisRecipeList->list;
 
 		while (currNode != NULL) {
-			if (compareRecipeID(getRecipeData(currNode), recipeOption)) {
+			if (compareRecipeID(getRecipeData(currNode), recipeOption - 1)) {
 
 				char* currRecipeName = getRecipeName(getRecipeData(currNode));
 				printf("\n%s:\n", currRecipeName);

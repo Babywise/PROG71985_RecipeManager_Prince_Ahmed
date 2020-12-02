@@ -9,9 +9,7 @@ RECIPE createRecipe(char* name, int id) {
 	RECIPE recipe;
 	recipe.id = id;
 	strcpy(recipe.name, name);
-	//memset(recipe.ingredientArray, ingredientList, sizeof(ingredientList)); // Check if mem address is also copied
 	recipe.ingredientArray = createIngredientList();
-	//recipe.ingredientArray;
 	return recipe;
 }
 
