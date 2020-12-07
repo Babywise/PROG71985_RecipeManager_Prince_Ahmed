@@ -11,3 +11,4 @@ typedef struct ingredientADT {
 ILIST createIngredientList();
 bool addIngredientToList(PILIST, INGREDIENT);
 bool displayIngredients(PILIST);
+PINGREDIENT getIngredientFromIngredientList(PILIST, int);

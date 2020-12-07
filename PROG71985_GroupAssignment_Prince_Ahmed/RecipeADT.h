@@ -16,3 +16,4 @@ void getRecipeListFromADT(PRLIST);
 PRECIPE getRecipeFromRecipeList(PRLIST, int);
 bool checkRecipeExists(PRLIST, int);
 bool displayRecipe(PRLIST, int);
+int getLastRecipeID(PRLIST);

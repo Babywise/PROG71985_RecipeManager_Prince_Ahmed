@@ -5,11 +5,10 @@
 #include "Login.h"
 
 #include <ctype.h>
-#include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
 
-char* getMenuInput() {
+char* getUserInput() {
 
 	int maxCount = sizeof(char);
 	char* userInput = allocateCharArray();
@@ -30,8 +29,7 @@ char* getMenuInput() {
 			userInput[i] = toupper(ch);
 			i++;
 
-			//input should a single char but if a word longer than 1 byte is entered, userInput is reallocated
-			//if i reaches max expected input (maxCount) buffer for char seatSelection is realloced by x2, 
+			//input starts as 1 byte and is realloced everytime it increases by 1
 			if (i == maxCount) {
 
 				maxCount++;
@@ -77,13 +75,66 @@ char* checkInputSize(char* userInputLetter) {
 
 }
 
+char* getMenuInput() {
+	char* userInput = getUserInput();
+	userInput = checkInputSize(userInput);
+
+	//counts size of input from user
+	for (int i = 0; i < strlen(userInput); i++) {
+		if (userInput == '\n') {
+			userInput = NULL;
+		} else if (i > MAX_ACCEPTABLE_INPUT) {
+			userInput = NULL;
+		}
+	}
+
+	return userInput;
+}
+
+
 int getRecipeIDInput() {
 
-	char* userInput = getMenuInput();
+	char* userInput = getUserInput();
 	userInput = checkInputSize(userInput);
 	int userInputAsInt = atoi(userInput);
 	free(userInput);
 	return userInputAsInt;
 
 }
+
+bool checkYesNo(char* userInput) {
+
+	if (strcmp("N", userInput) == 0 || strcmp("NO", userInput) == 0) {
+
+		printf("\nAdding Aborted\n");
+		return false;
+
+	} else if (strcmp("Y", userInput) != 0 && strcmp("YES", userInput) != 0) {
+
+		printf("\nYour Input Was Invalid\n");
+
+	} else {
+		return true;
+	}
+
+}
+
+bool yesNoShowMenuAgain() {
+
+	bool yesNo = false;
+
+	do {
+
+		printf("\nWould you like to show the menu again? (Y/N): ");
+		char* userInput = getUserInput();
+		if (checkYesNo(userInput)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	} while (true);
+}
+
+
 

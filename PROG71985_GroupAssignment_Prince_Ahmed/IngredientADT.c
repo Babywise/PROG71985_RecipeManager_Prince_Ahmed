@@ -46,16 +46,16 @@ bool displayIngredients(PILIST thisIngredientList) {
 		char* currIngredientMeasurement = "";
 		
 		while (currNode != NULL) {
-			char* currIngredientName = getIngredientName(getIngredientData(currNode));
-			float currIngredientQuantity = getIngredientQuantity(getIngredientData(currNode));
-			char* currIngredientMeasurement = getIngredientMeasurement(getIngredientData(currNode));
-
+			char* currIngredientName = getIngredientName(*getIngredientData(currNode));
+			float currIngredientQuantity = getIngredientQuantity(*getIngredientData(currNode));
+			char* currIngredientMeasurement = getIngredientMeasurement(*getIngredientData(currNode));
+			
 			char biggestIngredientName[MAX_NAME] = { "" };
 			int biggestIngredientSize = 0;
 			while (tempNode != NULL) {
-				char* tempIngredientName = getIngredientName(getIngredientData(tempNode));
+				char* tempIngredientName = getIngredientName(*getIngredientData(tempNode));
 				if (getNextIngredientNode(tempNode) != NULL) {
-					char* tempNextIngredientName = getIngredientName(getIngredientData(getNextIngredientNode(tempNode)));
+					char* tempNextIngredientName = getIngredientName(*getIngredientData(getNextIngredientNode(tempNode)));
 
 					if (strlen(biggestIngredientName) < strlen(tempIngredientName)) {
 						strcpy(biggestIngredientName, tempIngredientName);
@@ -79,5 +79,27 @@ bool displayIngredients(PILIST thisIngredientList) {
 			tempNode = thisIngredientList->list;
 		}
 		return true;
+	}
+}
+
+PINGREDIENT getIngredientFromIngredientList(PILIST thisIngredientList, int ingredientOption) {
+
+	if (thisIngredientList->list == NULL) {
+
+		printf("Err: No ingredients found");
+		return NULL;
+
+	} else {
+
+		PINODE currNode = thisIngredientList->list;
+
+		while (currNode != NULL) {
+
+			if (compareIngredientID(*getIngredientData(currNode), ingredientOption)) {
+				return getIngredientData(currNode);
+			}
+			currNode = getNextIngredientNode(currNode);
+		}
+		return NULL;
 	}
 }

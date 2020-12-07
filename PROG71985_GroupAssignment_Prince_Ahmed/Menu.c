@@ -51,19 +51,8 @@ void getAccountOption(USER* userArray) {
 	do {
 
 		char* userOption = getMenuInput();
-		char* userOptionRemoved = checkInputSize(userOption);
-
-		int sizeOfInput = 0;
-		//counts size of input from user
-		for (int i = 0; i < strlen(userOption); i++) {
-			if (userOptionRemoved == '\n') {
-				userOptionRemoved = NULL;
-			} else if (i > MAX_ACCEPTABLE_INPUT) {
-				userOptionRemoved = NULL;
-			}
-		}
-
-		switch (*userOptionRemoved) {
+		
+		switch (*userOption) {
 		case 'A':
 			validOption = true;
 			getLoginFromUser(userArray);
@@ -113,19 +102,9 @@ void displayRecipeFunctions() {
 bool getRecipeMenuOption(PRLIST recipeList) {
 
 	char* userOption = getMenuInput();
-	char* userOptionRemoved = checkInputSize(userOption);
-		
-	int sizeOfInput = 0;
-	// counts size of input from user
-	for (int i = 0; i < strlen(userOption); i++) {
-		if (userOptionRemoved == '\n') {
-			userOptionRemoved = NULL;
-		} else if (i > MAX_ACCEPTABLE_INPUT) {
-			userOptionRemoved = NULL;
-		}
-	}
+
 	int recipeOption = 1;
-	switch (*userOptionRemoved) {
+	switch (*userOption) {
 	case 'A':
 		displayRecipeList(recipeList);
 		printf("\nPlease select a recipe ID: ");
@@ -166,6 +145,7 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 		return true;
 
 	case 'D':
+		
 		free(userOption);
 		return true;
 
@@ -187,6 +167,7 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 		if (checkRecipeExists(recipeList, recipeOption)) {
 			deleteRecipeTextFile(recipeList, recipeOption);
 			removeRecipeFromList(recipeList, recipeOption);
+			writeRecipeList(recipeList);
 		} else {
 			printf("\nThis recipe doesn't exist\n");
 		}
@@ -207,9 +188,8 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 
 	default:
 		printf("Please enter a valid option: ");
-		getRecipeMenuOption(recipeList);
 		free(userOption);
-		return true;
+		getRecipeMenuOption(recipeList);
 	}
 }
 

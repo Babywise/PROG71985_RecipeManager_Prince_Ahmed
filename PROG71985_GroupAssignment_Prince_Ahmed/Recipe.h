@@ -15,7 +15,7 @@ typedef struct recipe {
 RECIPE createRecipe(char*, int);
 char* getRecipeName(RECIPE);
 int getRecipeID(RECIPE);
-PILIST getIngredientList(RECIPE);
+PILIST getIngredientList(PRECIPE);
 bool compareRecipeID(RECIPE, int);
 bool compareRecipe(RECIPE, RECIPE);
 void addIngredientToRecipe(PRECIPE, INGREDIENT);

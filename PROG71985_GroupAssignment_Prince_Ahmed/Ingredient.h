@@ -15,6 +15,7 @@ typedef struct ingredient {
 
 INGREDIENT createIngredient(int, char*, float, char*);
 bool compareMeasurement(char*);
-char* getIngredientName(INGREDIENT ingredient);
-float getIngredientQuantity(INGREDIENT ingredient);
-char* getIngredientMeasurement(INGREDIENT ingredient);
+char* getIngredientName(INGREDIENT);
+float getIngredientQuantity(INGREDIENT);
+char* getIngredientMeasurement(INGREDIENT);
+bool compareIngredientID(INGREDIENT, int);

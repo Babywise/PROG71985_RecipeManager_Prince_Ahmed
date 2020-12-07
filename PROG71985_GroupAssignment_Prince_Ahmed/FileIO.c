@@ -109,10 +109,9 @@ void deleteRecipeTextFile(PRLIST recipeList, int recipeOption) {
 	} else {
 		char* removeRecipeFile = allocateCharArray();
 		char* recipeName = getRecipeName(*getRecipeFromRecipeList(recipeList, recipeOption));
-		char* txt = ".txt";
 		char* dir = RECIPE_DIR;
 
-		sprintf(removeRecipeFile, "%s%s%s", RECIPE_DIR, recipeName, txt);
+		sprintf(removeRecipeFile, "%s%s.txt", RECIPE_DIR, recipeName);
 
 		if (remove(removeRecipeFile) == 0) {
 			printf("FILE: %s.txt has been removed\n", recipeName);
@@ -121,4 +120,72 @@ void deleteRecipeTextFile(PRLIST recipeList, int recipeOption) {
 		}
 		free(removeRecipeFile);
 	}
+}
+
+void writeRecipeList(PRLIST recipeList) {
+	
+	char* line = allocateCharArray();
+	FILE* listFile = fopen(RECIPE_LIST_NAME, "w");
+
+	if (listFile == NULL) {
+		printf("Recipe list file cannot be found, Initizalizing\n");
+		listFile = fopen(RECIPE_LIST_NAME, "w");
+		fclose(listFile);
+	} else { 
+		int i = 1;
+		//while (getRecipeFromRecipeList(recipeList, i)) {
+		while (i <= getLastRecipeID(recipeList) + 1) {
+
+			if (getRecipeFromRecipeList(recipeList, i)) {
+				char* recipeName = getRecipeName(*getRecipeFromRecipeList(recipeList, i));
+
+				sprintf(line, "%s.txt\n", recipeName);
+				line = reallocateCharArray(line, strlen(line));
+				fprintf(listFile, "%s", line);
+
+				writeRecipe(getRecipeFromRecipeList(recipeList, i), line);
+			}
+			i++;
+		}
+	}
+
+	free(line);
+	fflush(listFile);
+	fclose(listFile);
+
+}
+
+void writeRecipe(PRECIPE recipe, char* recipeFileName) {
+
+	char* line = allocateCharArray();
+	char* recipeDir = allocateCharArray();
+	sprintf(recipeDir, "%s%s", RECIPE_DIR, recipeFileName);
+	strtok(recipeDir, "\n");
+	FILE* recipeFile = fopen(recipeDir, "w");
+
+	if (recipeFile == NULL) {
+		return;
+	} else {
+		int tempIngredientID = 1;
+		PILIST ingredientList = getIngredientList(recipe);
+		while (getIngredientFromIngredientList(ingredientList, tempIngredientID)) {
+			
+			INGREDIENT currIngredient = *getIngredientFromIngredientList(ingredientList, tempIngredientID);
+
+			char* tempIngredientName = getIngredientName(currIngredient);
+			float tempIngredientQuantity = getIngredientQuantity(currIngredient);
+			char* tempIngredientMeasurment = getIngredientMeasurement(currIngredient);
+
+			sprintf(line, "%d\t%s\t%0.2f\t%s\n", tempIngredientID, tempIngredientName, tempIngredientQuantity, tempIngredientMeasurment);
+			line = reallocateCharArray(line, strlen(line));
+			fprintf(recipeFile, "%s", line);
+
+			tempIngredientID++;
+		}
+	}
+
+	free(line);
+	fflush(recipeFile);
+	fclose(recipeFile);
+
 }

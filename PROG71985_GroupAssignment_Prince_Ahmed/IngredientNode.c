@@ -33,9 +33,9 @@ void setNextIngredientNode(PINODE sourceIngredientNode, PINODE newNextIngredient
 
 }
 
-INGREDIENT getIngredientData(PINODE ingredientNode) {
+PINGREDIENT getIngredientData(PINODE ingredientNode) {
 
-	return ingredientNode->ingredientData;
+	return &(ingredientNode->ingredientData);
 
 }
 

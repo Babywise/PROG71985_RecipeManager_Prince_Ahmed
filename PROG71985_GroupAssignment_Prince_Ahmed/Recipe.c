@@ -21,8 +21,8 @@ int getRecipeID(RECIPE recipe) {
 	return recipe.id;
 }
 
-PILIST getIngredientList(RECIPE recipe) {
-	return &(recipe.ingredientArray);
+PILIST getIngredientList(PRECIPE recipe) {
+	return &(recipe->ingredientArray);
 }
 
 //bool compareRecipe(RECIPE a, RECIPE b) {

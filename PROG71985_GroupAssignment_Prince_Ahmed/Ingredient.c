@@ -41,3 +41,11 @@ float getIngredientQuantity(INGREDIENT ingredient) {
 char* getIngredientMeasurement(INGREDIENT ingredient) {
 	return ingredient.measurement;
 }
+
+bool compareIngredientID(INGREDIENT ingredient, int id) {
+	if (ingredient.id == id) {
+		return true;
+	} else {
+		return false;
+	}
+}

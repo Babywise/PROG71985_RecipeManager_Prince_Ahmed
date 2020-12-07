@@ -34,31 +34,37 @@ bool addRecipeToList(PRLIST thisRecipeList, RECIPE thisRecipe) {
 
 bool removeRecipeFromList(PRLIST thisRecipeList, int recipeIDToBeDeleted) {
 
-	PRNODE current = thisRecipeList->list;
+	PRNODE currNode = thisRecipeList->list;
 
-	if (compareRecipeID(current->recipeData, recipeIDToBeDeleted)) {
-		if (getNextRecipeNode(current) != NULL) {
-			thisRecipeList->list = getNextRecipeNode(current);
+	if (compareRecipeID(currNode->recipeData, recipeIDToBeDeleted)) {
+		if (getNextRecipeNode(currNode) != NULL) {
+			thisRecipeList->list = getNextRecipeNode(currNode);
 		} else {
 			thisRecipeList->list = NULL;
 		}
-		removeRecipeNode(current);
+		removeRecipeNode(currNode);
 		return true;
 	}
 
 	PRNODE prev = NULL;
 
-	while (current != NULL && !compareRecipeID(current->recipeData, recipeIDToBeDeleted)) {
-		prev = current;
-		current = getNextRecipeNode(current);
+	while (currNode != NULL && !compareRecipeID(*getRecipeData(currNode), recipeIDToBeDeleted - 1)) {
+		prev = currNode;
+		currNode = getNextRecipeNode(currNode);
 	}
 
-	if (current == NULL) {
+	if (currNode == NULL) {
 		return false;
 	}
-
-	setNextRecipeNode(prev, getNextRecipeNode(current));
-	removeRecipeNode(current);
+	//if deleting the first node, set the list to the 2nd node
+	if (prev == NULL) {
+		currNode = thisRecipeList->list;
+		thisRecipeList->list = getNextRecipeNode(thisRecipeList->list);
+	} else {
+		setNextRecipeNode(prev, getNextRecipeNode(currNode));
+	}
+	
+	removeRecipeNode(currNode);
 	return true;
 }
 
@@ -143,11 +149,30 @@ bool displayRecipe(PRLIST thisRecipeList, int recipeOption) {
 			if (compareRecipeID(*getRecipeData(currNode), recipeOption - 1)) {
 				char* currRecipeName = getRecipeName(*getRecipeData(currNode));
 				printf("\n%s:\n", currRecipeName);
-				displayIngredients(getIngredientList(*getRecipeData(currNode)));
+				displayIngredients(getIngredientList(getRecipeData(currNode)));
 				return true;
 			}
 			currNode = getNextRecipeNode(currNode);
 		}
-		return false;
+	}
+}
+
+int getLastRecipeID(PRLIST thisRecipeList) {
+
+	if (thisRecipeList->list == NULL) {
+
+		printf("Err: No recipes found");
+		return;
+
+	} else {
+
+		PRNODE currNode = thisRecipeList->list;
+		int currRecipeID;
+		while (currNode != NULL) {
+
+			currRecipeID = getRecipeID(*getRecipeData(currNode));
+			currNode = getNextRecipeNode(currNode);
+		}
+		return currRecipeID;
 	}
 }

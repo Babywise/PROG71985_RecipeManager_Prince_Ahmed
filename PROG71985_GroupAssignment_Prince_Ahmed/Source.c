@@ -41,17 +41,23 @@
 
 int main(void) {
 	//USER* userArray = getUsersFromFile();
-	//read
+
 	RLIST recipeList = readRecipeList();
 	displayLogo();
 	//displayAccountFunctions();
 	//getAccountOption(userArray);
-
 	bool validOption = true;
+	bool yesNo = true;
 	do {
+
 		displayRecipeFunctions();
-		validOption = getRecipeMenuOption(&recipeList);
-	} while(validOption);
+		//validOption = getRecipeMenuOption(&recipeList);
+		getRecipeMenuOption(&recipeList);
+		recipeList = readRecipeList();
+		yesNo = yesNoShowMenuAgain();
+
+	} while(yesNo);
 
 	return 0;
+
 }
