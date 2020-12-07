@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Login.h"
 #include "FileIO.h"
+
 #include <stdbool.h>
 
 void displayLogo();

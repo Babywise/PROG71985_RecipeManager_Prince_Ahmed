@@ -1,5 +1,6 @@
 #pragma once
 #define MAX_NAME 50
+
 #include "IngredientADT.h"
 
 #include <stdbool.h>

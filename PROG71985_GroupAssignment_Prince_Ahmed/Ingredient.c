@@ -31,13 +31,18 @@ bool compareMeasurement(char* recipeMeasurement) {
 		
 	}
 }
+int getIngredientID(INGREDIENT ingredient) {
+	return ingredient.id;
+}
 
 char* getIngredientName(INGREDIENT ingredient) {
 	return ingredient.name;
 }
+
 float getIngredientQuantity(INGREDIENT ingredient) {
 	return ingredient.quantity;
 }
+
 char* getIngredientMeasurement(INGREDIENT ingredient) {
 	return ingredient.measurement;
 }

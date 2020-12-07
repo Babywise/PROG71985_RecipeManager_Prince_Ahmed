@@ -26,6 +26,7 @@ char* getUserInput() {
 		//Accept input until user hits enter
 		while ((ch = getchar()) != '\n' && ch != NULL) {
 
+			//remove toupper and balance out the changes needed
 			userInput[i] = toupper(ch);
 			i++;
 
@@ -88,6 +89,7 @@ char* getMenuInput() {
 		}
 	}
 
+	toupper(userInput);
 	return userInput;
 }
 
@@ -105,14 +107,9 @@ int getRecipeIDInput() {
 bool checkYesNo(char* userInput) {
 
 	if (strcmp("N", userInput) == 0 || strcmp("NO", userInput) == 0) {
-
-		printf("\nAdding Aborted\n");
 		return false;
-
 	} else if (strcmp("Y", userInput) != 0 && strcmp("YES", userInput) != 0) {
-
 		printf("\nYour Input Was Invalid\n");
-
 	} else {
 		return true;
 	}
@@ -134,7 +131,55 @@ bool yesNoShowMenuAgain() {
 		}
 
 	} while (true);
+
 }
 
+INGREDIENT getIngredientInput(int id) {
 
+	printf("\nPlease name your ingredient: ");
+	char* userIngredientName = getUserInput();
+	printf("Enter a measurement: ");
+	char* userMeasurement = getUserInput();
+	printf("How much? (Format = '0.00') (Enter 0 for no amount): ");
+	char* userAmountAsChar = getUserInput();
+	float userAmount = atof(userAmountAsChar);
 
+	INGREDIENT userIngredient = createIngredient(id, userIngredientName, userAmount, userMeasurement);
+	return userIngredient;
+}
+
+bool yesNoAddIngredient() {
+
+	bool yesNo = false;
+
+	do {
+		printf("\nWould you like to add another ingredient? (Y/N): ");
+		char* userInput = getUserInput();
+
+		if (checkYesNo(userInput)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	} while (true);
+
+}
+
+bool yesNoAddEditIngredient() {
+
+	bool yesNo = false;
+
+	do {
+		printf("\nWould you like to add or edit another ingredient? (Y/N): ");
+		char* userInput = getUserInput();
+
+		if (checkYesNo(userInput)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	} while (true);
+
+}

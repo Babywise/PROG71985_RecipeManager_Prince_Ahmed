@@ -102,7 +102,7 @@ void displayRecipeFunctions() {
 bool getRecipeMenuOption(PRLIST recipeList) {
 
 	char* userOption = getMenuInput();
-
+	bool yesNo = true;
 	int recipeOption = 1;
 	switch (*userOption) {
 	case 'A':
@@ -145,7 +145,23 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 		return true;
 
 	case 'D':
+		printf("\nPlease name your recipe: ");
+		char* userRecipeName = getUserInput();
+		int userRecipeID = getLastRecipeID(recipeList) + 1;
+		RECIPE userRecipe = createRecipe(userRecipeName, userRecipeID);
+		addRecipeToList(recipeList, userRecipe);
 		
+		yesNo = true;
+		int id = 1;
+		printf("\nIngredients:\n");
+		do {
+			INGREDIENT userIngredient = getIngredientInput(id);
+			addIngredientToList(getIngredientList(getRecipeFromRecipeList(recipeList, userRecipeID + 1)), userIngredient);
+			yesNo = yesNoAddIngredient();
+			id++;
+		} while (yesNo);
+
+		writeRecipeList(recipeList);
 		free(userOption);
 		return true;
 
@@ -153,9 +169,39 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 		displayRecipeList(recipeList);
 		printf("\nPlease select an ID to edit a recipe: ");
 		recipeOption = getRecipeIDInput();
+		yesNo = true;
 
-		//more here
+		if (!displayRecipe(recipeList, recipeOption)) {
+			printf("\nThis recipe doesn't exist\n");
+		} else {
 
+			do {
+				printf("\nWould you like to add (1) or edit (2) an ingredient in the recipe? ");
+				int addEditOption = getRecipeIDInput();
+
+				if (addEditOption == 1) {
+					//get last id
+					int lastIngredientID = getLastIngredientID(getIngredientList(getRecipeFromRecipeList(recipeList, recipeOption)));
+					INGREDIENT userIngredient = getIngredientInput(lastIngredientID + 1);
+					addIngredientToList(getIngredientList(getRecipeFromRecipeList(recipeList, recipeOption)), userIngredient);
+					
+					yesNo = yesNoAddEditIngredient();
+
+				} else if (addEditOption == 2) {
+					printf("\nPlease select an ID to edit an ingredient: ");
+					int ingredientOption = getRecipeIDInput();
+					PINGREDIENT selectedIngredient = getIngredientFromIngredientList(getIngredientList(getRecipeFromRecipeList(recipeList, recipeOption)), ingredientOption); 
+					INGREDIENT userIngredient = getIngredientInput(ingredientOption);
+					memcpy(selectedIngredient, &userIngredient, sizeof(INGREDIENT));
+					yesNo = yesNoAddEditIngredient();
+
+				} else {
+					printf("\nYour Input Was Invalid\n");
+				}
+			} while (yesNo);
+		}
+
+		writeRecipeList(recipeList);
 		free(userOption);
 		return true;
 
@@ -192,7 +238,6 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 		getRecipeMenuOption(recipeList);
 	}
 }
-
 
 void displayRecipeList(PRLIST recipeList) {
 

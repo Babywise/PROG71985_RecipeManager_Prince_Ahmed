@@ -18,9 +18,6 @@
     <ClInclude Include="Recipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cuisine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="User.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,9 +57,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cuisine.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="User.c">

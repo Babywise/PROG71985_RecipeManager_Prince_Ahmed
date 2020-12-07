@@ -1,5 +1,7 @@
 #pragma once
 #include "User.h"
+#include "Ingredient.h"
+
 #include <stdbool.h>
 
 #define MAX_NAME_LENGTH 255
@@ -11,3 +13,6 @@ char* checkInputSize(char*);
 int getRecipeIDInput();
 bool checkYesNo(char*);
 bool yesNoShowMenuAgain();
+INGREDIENT getIngredientInput(int id);
+bool yesNoAddIngredient();
+bool yesNoAddEditIngredient();

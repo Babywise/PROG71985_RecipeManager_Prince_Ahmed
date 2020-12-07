@@ -41,14 +41,16 @@ bool displayIngredients(PILIST thisIngredientList) {
 		PINODE currNode = thisIngredientList->list;
 		PINODE tempNode = thisIngredientList->list;
 
+		int currIngredientID = 0;
 		char* currIngredientName = "";
 		float currIngredientQuantity = 0.0f;
 		char* currIngredientMeasurement = "";
 		
 		while (currNode != NULL) {
-			char* currIngredientName = getIngredientName(*getIngredientData(currNode));
-			float currIngredientQuantity = getIngredientQuantity(*getIngredientData(currNode));
-			char* currIngredientMeasurement = getIngredientMeasurement(*getIngredientData(currNode));
+			currIngredientID = getIngredientID(*getIngredientData(currNode));
+			currIngredientName = getIngredientName(*getIngredientData(currNode));
+			currIngredientQuantity = getIngredientQuantity(*getIngredientData(currNode));
+			currIngredientMeasurement = getIngredientMeasurement(*getIngredientData(currNode));
 			
 			char biggestIngredientName[MAX_NAME] = { "" };
 			int biggestIngredientSize = 0;
@@ -73,7 +75,7 @@ bool displayIngredients(PILIST thisIngredientList) {
 				strcat(currIngredientName, " ");
 				currIngredientNameSize++;
 			}
-			printf("\t%s\t%0.2f\t%s\n", currIngredientName, currIngredientQuantity, currIngredientMeasurement);
+			printf("\t%d) %s\t%0.2f\t%s\n", currIngredientID, currIngredientName, currIngredientQuantity, currIngredientMeasurement);
 			
 			currNode = getNextIngredientNode(currNode);
 			tempNode = thisIngredientList->list;
@@ -101,5 +103,25 @@ PINGREDIENT getIngredientFromIngredientList(PILIST thisIngredientList, int ingre
 			currNode = getNextIngredientNode(currNode);
 		}
 		return NULL;
+	}
+}
+
+int getLastIngredientID(PILIST thisIngredientList) {
+
+	if (thisIngredientList->list == NULL) {
+
+		printf("Err: No ingredients found");
+		return;
+
+	} else {
+
+		PINODE currNode = thisIngredientList->list;
+		int currRecipeID;
+		while (currNode != NULL) {
+
+			currRecipeID = getIngredientID(*getIngredientData(currNode));
+			currNode = getNextIngredientNode(currNode);
+		}
+		return currRecipeID;
 	}
 }

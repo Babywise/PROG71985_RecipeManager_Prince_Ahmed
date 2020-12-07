@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Allocation.h" />
-    <ClInclude Include="Cuisine.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="Ingredient.h" />
     <ClInclude Include="IngredientADT.h" />
@@ -155,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allocation.c" />
-    <ClCompile Include="Cuisine.c" />
     <ClCompile Include="FileIO.c" />
     <ClCompile Include="Ingredient.c" />
     <ClCompile Include="IngredientADT.c" />
