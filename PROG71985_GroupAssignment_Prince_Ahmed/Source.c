@@ -40,21 +40,22 @@
 #include <stdbool.h>
 
 int main(void) {
-	//USER* userArray = getUsersFromFile();
-
+	USER* userArray = getUsersFromFile();
 	RLIST recipeList = readRecipeList();
 	displayLogo();
 	//displayAccountFunctions();
 	//getAccountOption(userArray);
-	bool validOption = true;
+
 	bool yesNo = true;
 	do {
 
 		displayRecipeFunctions();
-		//validOption = getRecipeMenuOption(&recipeList);
-		getRecipeMenuOption(&recipeList);
+		yesNo = getRecipeMenuOption(&recipeList);
 		recipeList = readRecipeList();
-		yesNo = yesNoShowMenuAgain();
+
+		if (yesNo) {
+			yesNo = yesNoShowMenuAgain();
+		}
 
 	} while(yesNo);
 

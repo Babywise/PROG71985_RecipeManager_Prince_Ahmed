@@ -110,6 +110,7 @@ bool checkYesNo(char* userInput) {
 		return false;
 	} else if (strcmp("Y", userInput) != 0 && strcmp("YES", userInput) != 0) {
 		printf("\nYour Input Was Invalid\n");
+		return false;
 	} else {
 		return true;
 	}
