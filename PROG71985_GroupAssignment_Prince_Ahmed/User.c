@@ -53,6 +53,24 @@ USER* getUsersFromFile() {
 
 }
 
+void writeUserToFile(char* username, char* password) {
+	char* line = allocateCharArray();
+	FILE* userFile = fopen(LOGIN_FILE, "a");
+
+	if (userFile == NULL) {
+		printf("Recipe list file cannot be found\n");
+	} else {
+
+		sprintf(line, "\n%s\t%s", username, password);
+		line = reallocateCharArray(line, strlen(line));
+		fprintf(userFile, "%s", line);
+	}
+
+	free(line);
+	fflush(userFile);
+	fclose(userFile);
+}
+
 USER createUser(char* username, char* password) {
 	
 	USER currUser;

@@ -60,7 +60,7 @@ void getAccountOption(USER* userArray) {
 
 		case 'B':
 			validOption = true;
-			//function
+			createAccount();
 			break;
 
 		case 'C':

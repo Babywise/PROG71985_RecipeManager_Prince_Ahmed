@@ -1,4 +1,3 @@
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <string.h>
@@ -37,6 +36,38 @@ void getLoginFromUser(USER* userArray) {
 		getLoginFromUser(userArray);
 
 	}
+
+}
+
+void createAccount() {
+
+	char* username = allocateCharArray();
+	char* confirmUsername = allocateCharArray();
+	char* password = allocateCharArray();
+	char* confirmPassword = allocateCharArray();
+
+	printf("Please enter a username: ");
+	scanf("%s", username);
+	printf("Please re-enter your username: ");
+	scanf("%s", confirmUsername);
+	printf("Please enter a password: ");
+	scanf("%s", password);
+	printf("Please re-enter your password: ");
+	scanf("%s", confirmPassword);
+
+	reallocateCharArray(username, strlen(username));
+	reallocateCharArray(confirmUsername, strlen(confirmUsername));
+	reallocateCharArray(password, strlen(password));
+	reallocateCharArray(confirmPassword, strlen(confirmPassword));
+
+	if (strncmp(username, confirmUsername, strlen(username)) == 0 && strncmp(password, confirmPassword, strlen(password)) == 0) {
+		writeUserToFile(username, password);
+	} else {
+		printf("\nCredentials did not match\n");
+		exit(EXIT_SUCCESS);
+	}
+
+	return 0;
 
 }
 

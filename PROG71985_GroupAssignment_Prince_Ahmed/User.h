@@ -15,6 +15,7 @@ typedef struct user {
 } USER;
 
 USER* getUsersFromFile();
+void writeUserToFile(char*, char*);
 USER createUser(char*, char*);
 char* getUsername(USER*, int);
 char* getPassword(USER*, int);

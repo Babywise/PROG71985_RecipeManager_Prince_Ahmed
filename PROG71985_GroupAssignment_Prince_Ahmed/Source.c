@@ -43,8 +43,8 @@ int main(void) {
 	USER* userArray = getUsersFromFile();
 	RLIST recipeList = readRecipeList();
 	displayLogo();
-	//displayAccountFunctions();
-	//getAccountOption(userArray);
+	displayAccountFunctions();
+	getAccountOption(userArray);
 
 	bool yesNo = true;
 	do {

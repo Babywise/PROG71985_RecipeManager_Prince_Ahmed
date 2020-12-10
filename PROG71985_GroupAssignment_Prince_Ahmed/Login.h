@@ -6,4 +6,5 @@
 #include <stdbool.h>
 
 void getLoginFromUser(USER*);
+void createAccount();
 bool checkCreds(char*, char*, USER*);
