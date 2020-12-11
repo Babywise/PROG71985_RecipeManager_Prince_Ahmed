@@ -10,7 +10,7 @@
  * 
  *
  *    Date Started:		2020/11/10
- *    Date Completed:	2020/12
+ *    Date Completed:	2020/12/11
  *
  *	  Program Description:
  * 
@@ -56,6 +56,7 @@
  *				   - Added search function and sort recipe names alphabetically function
  *
  *			Dec 11 - Added error checking in places that were lacking, Added more test recipes, Created README.txt
+ *				   - Added date completed to Source.c
  *
  */
 
