@@ -1,10 +1,21 @@
+/*
+ *	  Description: Structure of an ingredient and operational functions
+ *
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ *
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
 #define _CRT_SECURE_NO_WARNINGS
-
 
 #include "Ingredient.h"
 
 #include <string.h>
 #include <stdlib.h>
+
 INGREDIENT createIngredient(int id, char* ingredientName, float quantity, char* measurement) {
 	
 	INGREDIENT ingredient;
@@ -17,20 +28,6 @@ INGREDIENT createIngredient(int id, char* ingredientName, float quantity, char* 
 
 }
 
-bool compareMeasurement(char* recipeMeasurement) {
-
-	char* measurementArrForRead[NUM_OF_MEASUREMENTS_FOR_READ] = { "Tbps", "Tsp", "ml", "L", "Cups","oz", "lbs", "ToTaste", "ToSight", "Cans" }; 
-
-	for (int i = 0; i < NUM_OF_MEASUREMENTS_FOR_READ; i++) {
-		
-		if (strcmp(measurementArrForRead[i], recipeMeasurement) == 0) {
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-}
 int getIngredientID(INGREDIENT ingredient) {
 	return ingredient.id;
 }

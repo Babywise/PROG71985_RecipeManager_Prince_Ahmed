@@ -1,3 +1,14 @@
+/*
+ *	  Description: Fully operational ADT subsystem for ingredient management
+ *
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ *
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
 #define _CRT_SECURE_NO_WARNINGS
 #include "IngredientADT.h"
 #include "Recipe.h"
@@ -17,13 +28,13 @@ bool addIngredientToList(PILIST thisIngredientList, INGREDIENT thisIngredient) {
 	if (!newNode) {
 		return false;
 	}
-	//if ingredient list is empty
+	// If ingredient list is empty
 	if (thisIngredientList->list == NULL) {
 		setNextIngredientNode(newNode, thisIngredientList->list);
 		thisIngredientList->list = newNode;
 	} else {
 		PINODE currNode = thisIngredientList->list;
-		//find the last node
+		// Find the last node
 		while (getNextIngredientNode(currNode) != NULL) {
 			currNode = getNextIngredientNode(currNode);
 		}
@@ -47,6 +58,7 @@ bool displayIngredients(PILIST thisIngredientList) {
 		char* currIngredientMeasurement = "";
 		
 		while (currNode != NULL) {
+			
 			currIngredientID = getIngredientID(*getIngredientData(currNode));
 			currIngredientName = getIngredientName(*getIngredientData(currNode));
 			currIngredientQuantity = getIngredientQuantity(*getIngredientData(currNode));
@@ -54,15 +66,19 @@ bool displayIngredients(PILIST thisIngredientList) {
 			
 			char biggestIngredientName[MAX_NAME] = { "" };
 			int biggestIngredientSize = 0;
+
+			//Find the largest ingredient name by iterating through the ingredient list 
 			while (tempNode != NULL) {
 				char* tempIngredientName = getIngredientName(*getIngredientData(tempNode));
 				if (getNextIngredientNode(tempNode) != NULL) {
 					char* tempNextIngredientName = getIngredientName(*getIngredientData(getNextIngredientNode(tempNode)));
 
+					// If the biggest ingredient name length is smaller than the current ingredient replace the variable
 					if (strlen(biggestIngredientName) < strlen(tempIngredientName)) {
 						strcpy(biggestIngredientName, tempIngredientName);
 						biggestIngredientSize = strlen(biggestIngredientName);
 
+					// If the biggest ingredient name length is smaller than the next ingredient in the list replace the variable
 					} else if (strlen(biggestIngredientName) < strlen(tempNextIngredientName)) {
 						strcpy(biggestIngredientName, tempNextIngredientName);
 						biggestIngredientSize = strlen(biggestIngredientName);
@@ -71,6 +87,9 @@ bool displayIngredients(PILIST thisIngredientList) {
 				tempNode = getNextIngredientNode(tempNode);
 			}
 			int currIngredientNameSize = strlen(currIngredientName);
+
+			// Concatenate the difference amount of spaces onto the ends of the other ingredients
+			// Forces the strings to the same size (for console formatting)
 			while (currIngredientNameSize < biggestIngredientSize) {
 				strcat(currIngredientName, " ");
 				currIngredientNameSize++;
@@ -94,7 +113,7 @@ PINGREDIENT getIngredientFromIngredientList(PILIST thisIngredientList, int ingre
 	} else {
 
 		PINODE currNode = thisIngredientList->list;
-
+		//Compares and finds the selected ingredient ID in the list
 		while (currNode != NULL) {
 
 			if (compareIngredientID(*getIngredientData(currNode), ingredientOption)) {
@@ -117,6 +136,7 @@ int getLastIngredientID(PILIST thisIngredientList) {
 
 		PINODE currNode = thisIngredientList->list;
 		int currRecipeID;
+		//Iterates until the last ingredient and returns its ID
 		while (currNode != NULL) {
 
 			currRecipeID = getIngredientID(*getIngredientData(currNode));

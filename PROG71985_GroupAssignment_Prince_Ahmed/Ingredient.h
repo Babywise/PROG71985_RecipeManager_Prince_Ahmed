@@ -1,3 +1,14 @@
+/*
+ *	  Description: Structure of an ingredient and operational functions
+ *
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ *
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
 #pragma once
 #define NUM_ITEMS_IN_INGREDIENT 4 
 #define MAX_INGREDIENTS 100
@@ -16,7 +27,6 @@ typedef struct ingredient {
 }INGREDIENT, *PINGREDIENT;
 
 INGREDIENT createIngredient(int, char*, float, char*);
-bool compareMeasurement(char*);
 int getIngredientID(INGREDIENT ingredient);
 char* getIngredientName(INGREDIENT);
 float getIngredientQuantity(INGREDIENT);

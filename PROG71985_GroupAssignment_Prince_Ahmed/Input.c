@@ -1,3 +1,15 @@
+/*
+ *	  Description: Functions related to user input
+ *
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ *
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
+
 #define _CRT_SECURE_NO_WARNINGS
 #include "Allocation.h"
 #include "User.h"
@@ -23,14 +35,13 @@ char* getUserInput() {
 		char ch = NULL;
 		int i = 0;
 
-		//Accept input until user hits enter
+		// Accept input until user hits enter
 		while ((ch = getchar()) != '\n' && ch != NULL) {
 
-			//remove toupper and balance out the changes needed
-			userInput[i] = toupper(ch);
+			userInput[i] = ch;
 			i++;
 
-			//input starts as 1 byte and is realloced everytime it increases by 1
+			// Input starts at 1 byte and is reallocated everytime it increases by 1
 			if (i == maxCount) {
 
 				maxCount++;
@@ -45,7 +56,7 @@ char* getUserInput() {
 			}
 		}
 
-		//replaces last char '\n' with NULL
+		// Replaces last char '\n' with NULL
 		userInput[i] = NULL;
 
 	}
@@ -58,14 +69,14 @@ char* checkInputSize(char* userInputLetter) {
 
 	int sizeOfInput = 0;
 
-	//counts size of input from user
+	// Counts size of input from user
 	for (int i = 0; i < strlen(userInputLetter); i++) {
 		if (userInputLetter[i] != NULL) {
 			sizeOfInput++;
 		}
 	}
 
-	//if user input is larger than 1 character, set to null for automatic invalid entry
+	// If user input is larger than 1 character, set to null for automatic invalid entry
 	if (sizeOfInput > MAX_ACCEPTABLE_INPUT) {
 		for (int i = 0; i < strlen(userInputLetter); i++) {
 			userInputLetter[i] = NULL;
@@ -77,10 +88,11 @@ char* checkInputSize(char* userInputLetter) {
 }
 
 char* getMenuInput() {
-	char* userInput = getUserInput();
-	userInput = checkInputSize(userInput);
 
-	//counts size of input from user
+	char* userInput = getUserInput();
+	userInput = convertStringToUpper(userInput);
+	userInput = checkInputSize(userInput);
+	// Counts size of input from user
 	for (int i = 0; i < strlen(userInput); i++) {
 		if (userInput == '\n') {
 			userInput = NULL;
@@ -89,7 +101,7 @@ char* getMenuInput() {
 		}
 	}
 
-	toupper(userInput);
+	
 	return userInput;
 }
 
@@ -97,6 +109,7 @@ char* getMenuInput() {
 int getRecipeIDInput() {
 
 	char* userInput = getUserInput();
+	userInput = convertStringToUpper(userInput);
 	userInput = checkInputSize(userInput);
 	int userInputAsInt = atoi(userInput);
 	free(userInput);
@@ -114,7 +127,6 @@ bool checkYesNo(char* userInput) {
 	} else {
 		return true;
 	}
-
 }
 
 bool yesNoShowMenuAgain() {
@@ -125,6 +137,7 @@ bool yesNoShowMenuAgain() {
 
 		printf("\nWould you like to show the menu again? (Y/N): ");
 		char* userInput = getUserInput();
+		userInput = convertStringToUpper(userInput);
 		if (checkYesNo(userInput)) {
 			return true;
 		} else {
@@ -132,7 +145,6 @@ bool yesNoShowMenuAgain() {
 		}
 
 	} while (true);
-
 }
 
 INGREDIENT getIngredientInput(int id) {
@@ -156,7 +168,7 @@ bool yesNoAddIngredient() {
 	do {
 		printf("\nWould you like to add another ingredient? (Y/N): ");
 		char* userInput = getUserInput();
-
+		userInput = convertStringToUpper(userInput);
 		if (checkYesNo(userInput)) {
 			return true;
 		} else {
@@ -174,7 +186,7 @@ bool yesNoAddEditIngredient() {
 	do {
 		printf("\nWould you like to add or edit another ingredient? (Y/N): ");
 		char* userInput = getUserInput();
-
+		userInput = convertStringToUpper(userInput);
 		if (checkYesNo(userInput)) {
 			return true;
 		} else {
@@ -182,5 +194,13 @@ bool yesNoAddEditIngredient() {
 		}
 
 	} while (true);
+}
+
+char* convertStringToUpper(char* input) {
+
+	for (int i = 0; i < strlen(input); i++) {
+		input[i] = toupper(input[i]);
+	}
+	return input;
 
 }

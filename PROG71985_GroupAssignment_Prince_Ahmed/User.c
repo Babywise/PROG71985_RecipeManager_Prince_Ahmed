@@ -1,6 +1,20 @@
+/*
+ *	  Description: File IO based login functions
+ *
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ *
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
+
 #define _CRT_SECURE_NO_WARNINGS
+
 #include "User.h"
 #include "Allocation.h"
+
 #include <stdio.h>
 #include <string.h>
 
@@ -19,10 +33,9 @@ USER* getUsersFromFile() {
 
 
 	USER userArray[MAX_USERS] = { NULL };
-	//PUSER *pUserArray = (PUSER*)malloc(sizeof(PUSER));
-	//printf("%u", (unsigned int) sizeof(pUserArray));
 	int currLine = 0;
 
+	// Users are read in per line in the text file (Username [tab] Password)
 	while (fscanf(login, "%s\t%s[^\n]", tempUsername, tempPassword) != EOF) {
 
 		tempUsername = reallocateCharArray(tempUsername, strlen(tempUsername));
@@ -40,11 +53,6 @@ USER* getUsersFromFile() {
 	free(tempPassword);
 
 	printf("\n");
-	for (int i = 0; i < currLine; i++) {
-
-		printf("%s -- %s\n", userArray[i].username, userArray[i].password);
-
-	}
 
 	fflush(login);
 	fclose(login);
@@ -60,7 +68,8 @@ void writeUserToFile(char* username, char* password) {
 	if (userFile == NULL) {
 		printf("Recipe list file cannot be found\n");
 	} else {
-
+		
+		// Users are written in per line in the text file (Username [tab] Password)
 		sprintf(line, "\n%s\t%s", username, password);
 		line = reallocateCharArray(line, strlen(line));
 		fprintf(userFile, "%s", line);

@@ -1,3 +1,14 @@
+/*
+ *	  Description: Fully operational ADT system for recipe management
+ *
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ *
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
 #include "RecipeNode.h"
 
 #include <stdio.h>
@@ -37,6 +48,10 @@ PRECIPE getRecipeData(PRNODE recipeNode) {
 
 	return &(recipeNode->recipeData);
 
+}
+
+void setRecipeData(PRNODE recipeNode, RECIPE recipe) {
+	recipeNode->recipeData = recipe;
 }
 
 void removeRecipeNode(PRNODE recipeNode) {

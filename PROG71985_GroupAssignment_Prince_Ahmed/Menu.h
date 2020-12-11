@@ -1,3 +1,15 @@
+/*
+ *	  Description: Functions related to the main menu
+ *
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ *
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
+
 #pragma once
 #include "RecipeADT.h"
 #include "User.h"

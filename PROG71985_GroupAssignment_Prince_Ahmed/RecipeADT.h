@@ -1,3 +1,15 @@
+/*	
+ *	  Description: Fully operational ADT system for recipe management
+ * 
+ *    Name:		Nick Prince
+ *    Email:	nprince3037@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ * 
+ *    Name:		Islam Ahmed
+ *    Email:	Iahmed9886@conestogac.on.ca
+ *    Course:	PROG71985 - Fall2020
+ */
+
 #pragma once
 #include "RecipeNode.h"
 
@@ -17,3 +29,6 @@ PRECIPE getRecipeFromRecipeList(PRLIST, int);
 bool checkRecipeExists(PRLIST, int);
 bool displayRecipe(PRLIST, int);
 int getLastRecipeID(PRLIST);
+bool searchRecipesInRecipeList(PRLIST, char*);
+bool showRecipeListAToZ(PRLIST);
+//int compare(const void*, const void*);
