@@ -41,38 +41,43 @@ void displayLogo() {
 		"           ####               ####\n"
 		"              .##############,\n\n", backslash, backslash, backslash, backslash, backslash);
 
-	printf("---------------------------------------------------------------------------------------------------------\n\n");
+	printf("---------------------------------------------------------------------------------------------------------\n");
 
 	
 }
 
 void displayAccountFunctions() {
 
-	printf("Welcome to the recipe manager, please select one of the options:\n\n"
+	printf("\nWelcome to the recipe manager, please select one of the options:\n\n"
 		"a) Login to your account\n"
 		"b) Create an account\n"
 		"c) exit\n");
 		
 }
 
-void getAccountOption(USER* userArray) {
+bool getAccountOption(USER* userArray) {
 
 	char* userOption;
 	bool validOption = false;
 
 	do {
-
+		printf("\nPlease enter an option: ");
 		char* userOption = getMenuInput();
 		
 		switch (*userOption) {
 		case 'A':
 			validOption = true;
-			getLoginFromUser(userArray);
+			if (getLoginFromUser(userArray)) {
+				return true;
+			} else {
+				return false;
+			}
 			break;
 
 		case 'B':
 			validOption = true;
-			createAccount();
+			createAccount(userArray);
+			return false;
 			break;
 
 		case 'C':
@@ -249,11 +254,21 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 		char* searchWord = getUserInput();
 		searchRecipesInRecipeList(recipeList, searchWord);
 
-		printf("\nPlease select a recipe ID: ");
-		recipeOption = getRecipeIDInput();
+		printf("\nWould you like to select a recipe? (Y/N): ");
 
-		if (!displayRecipe(recipeList, recipeOption)) {
-			printf("\nThis recipe doesn't exist\n");
+		if (checkYesNo()) {
+			bool validID = false;
+			do {
+				printf("\nPlease select a recipe ID: ");
+				recipeOption = getRecipeIDInput();
+
+				if (!displayRecipe(recipeList, recipeOption)) {
+					printf("\nThis recipe doesn't exist\n");
+				} else {
+					validID = true;
+				}
+
+			} while (!validID);
 		}
 
 		free(searchWord);
@@ -263,12 +278,24 @@ bool getRecipeMenuOption(PRLIST recipeList) {
 	case 'H':
 		//Sort existing recipes
 		showRecipeListAToZ(recipeList);
-		printf("\nPlease select a recipe ID: ");
-		recipeOption = getRecipeIDInput();
+		
+		printf("\nWould you like to select a recipe? (Y/N): ");
 
-		if (!displayRecipe(recipeList, recipeOption)) {
-			printf("\nThis recipe doesn't exist\n");
+		if (checkYesNo()) {
+			bool validID = false;
+			do {
+				printf("\nPlease select a recipe ID: ");
+				recipeOption = getRecipeIDInput();
+
+				if (!displayRecipe(recipeList, recipeOption)) {
+					printf("\nThis recipe doesn't exist\n");
+				} else {
+					validID = true;
+				}
+
+			} while (!validID);
 		}
+		
 		free(userOption);
 		return true;
 

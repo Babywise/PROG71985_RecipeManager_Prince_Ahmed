@@ -20,7 +20,7 @@
 #include "Allocation.h"
 
 
-void getLoginFromUser(USER* userArray) {
+bool getLoginFromUser(USER* userArray) {
 
 	char username[MAX_NAME_LENGTH] = { "" };
 	char password[MAX_NAME_LENGTH] = { "" };
@@ -38,20 +38,17 @@ void getLoginFromUser(USER* userArray) {
 	validationCheck = checkCreds(username, password, userArray);
 
 	if (validationCheck) {
-
-		printf("Credentials Accepted - Logging in...\n");
-
+		printf("\nCredentials Accepted - Logging in...");
+		return true;
 	} else {
-
-		printf("Incorrect Credentials - Failed to log in\n");
+		printf("\nIncorrect Credentials - Failed to log in");
 		fflush(stdin);
-		getLoginFromUser(userArray);
-
+		return false;
 	}
 
 }
 
-void createAccount() {
+void createAccount(USER* userArray) {
 	
 	printf("Please enter a username: ");
 	char* username = getUserInput();
@@ -63,10 +60,17 @@ void createAccount() {
 	char* confirmPassword = getUserInput();
 
 	if (strncmp(username, confirmUsername, strlen(username)) == 0 && strncmp(password, confirmPassword, strlen(password)) == 0) {
-		writeUserToFile(username, password);
+		if (!checkUsernameExists(username, userArray)) {
+			writeUserToFile(username, password);
+			printf("\nAccount Created");
+		} else {
+			printf("\nUsername exists");
+			//exit(EXIT_FAILURE);
+		}
+		
 	} else {
-		printf("\nCredentials did not match\n");
-		exit(EXIT_SUCCESS);
+		printf("\nCredentials did not match");
+		//exit(EXIT_FAILURE);
 	}
 
 	free(username);
@@ -108,6 +112,38 @@ bool checkCreds(char* username, char* password, USER* userArray) {
 	}
 
 	if (validCheck) {
+		return true;
+	} else {
+		return false;
+	}
+
+}
+
+bool checkUsernameExists(char* username, USER* userArray) {
+
+	int sizeOfArray = getSizeOfUserArray(userArray);
+	int usernameResult;
+	bool exists = false;
+
+	for (int i = 0; i < sizeOfArray; i++) {
+
+		char* tempUsername = allocateCharArray();
+
+		strcpy(tempUsername, getUsername(userArray, i));
+
+		usernameResult = strcmp(tempUsername, username);
+
+		if (usernameResult == 0) {
+			exists = true;
+			break;
+		} else {
+			exists = false;
+		}
+
+		free(tempUsername);
+	}
+
+	if (exists) {
 		return true;
 	} else {
 		return false;

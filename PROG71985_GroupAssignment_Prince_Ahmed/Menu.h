@@ -21,7 +21,7 @@
 
 void displayLogo();
 void displayAccountFunctions();
-void getAccountOption(USER*);
+bool getAccountOption(USER*);
 void displayRecipeFunctions();
 bool getRecipeMenuOption(PRLIST);
 void displayRecipeList(PRLIST);

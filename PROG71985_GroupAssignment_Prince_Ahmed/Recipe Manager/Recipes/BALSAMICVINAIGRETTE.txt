@@ -1,4 +1,4 @@
-1	BalsamicVinigar	1.50	Cups
+1	BalsamicVinegar	1.50	Cups
 2	BrownSugar	1.00	Cups
 3	Salt	4.00	Tsp
 4	Pepper	4.00	Tsp

@@ -162,7 +162,6 @@ bool displayRecipe(PRLIST thisRecipeList, int recipeOption) {
 		PRNODE currNode = thisRecipeList->list;
 
 		while (currNode != NULL) {
-
 			if (compareRecipeID(*getRecipeData(currNode), recipeOption - 1)) {
 				char* currRecipeName = getRecipeName(*getRecipeData(currNode));
 				printf("\n%s:\n", currRecipeName);

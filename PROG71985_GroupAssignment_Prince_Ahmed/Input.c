@@ -101,7 +101,6 @@ char* getMenuInput() {
 		}
 	}
 
-	
 	return userInput;
 }
 
@@ -110,66 +109,123 @@ int getRecipeIDInput() {
 
 	char* userInput = getUserInput();
 	userInput = convertStringToUpper(userInput);
-	userInput = checkInputSize(userInput);
 	int userInputAsInt = atoi(userInput);
 	free(userInput);
 	return userInputAsInt;
 
 }
 
-bool checkYesNo(char* userInput) {
+bool checkYesNo() {
 
-	if (strcmp("N", userInput) == 0 || strcmp("NO", userInput) == 0) {
-		return false;
-	} else if (strcmp("Y", userInput) != 0 && strcmp("YES", userInput) != 0) {
-		printf("\nYour Input Was Invalid\n");
-		return false;
-	} else {
-		return true;
-	}
+	bool yesNo = false;
+	bool validInput = false;
+	do {
+		char* userInput = getMenuInput();
+		if (strcmp("N", userInput) == 0 || strcmp("NO", userInput) == 0) {
+			free(userInput);
+			yesNo = false;
+			validInput = true;
+		} else if (strcmp("Y", userInput) != 0 && strcmp("YES", userInput) != 0) {
+			printf("\nYour Input Was Invalid\n");
+			printf("\nPlease Enter Yes or No (Y/N): ");
+			free(userInput);
+			validInput = false;
+		} else {
+			free(userInput);
+			yesNo = true;
+			validInput = true;
+		}
+	} while (!validInput);
+	return yesNo;
 }
 
 bool yesNoShowMenuAgain() {
 
-	bool yesNo = false;
-
 	do {
-
 		printf("\nWould you like to show the menu again? (Y/N): ");
-		char* userInput = getUserInput();
-		userInput = convertStringToUpper(userInput);
-		if (checkYesNo(userInput)) {
+		if (checkYesNo()) {
 			return true;
 		} else {
 			return false;
 		}
 
 	} while (true);
+
 }
 
 INGREDIENT getIngredientInput(int id) {
 
 	printf("\nPlease name your ingredient: ");
-	char* userIngredientName = getUserInput();
-	printf("Enter a measurement: ");
-	char* userMeasurement = getUserInput();
+	char* userIngredientName = removeSpacesAndFormat(getUserInput());
+	printf("Enter a measurement (Example: Cups, g, oz, etc.): ");
+	char* userMeasurement;
+	bool validOption;
+	do {
+		validOption = true;
+		userMeasurement = getUserInput();
+
+		//Check if numeric values were entered
+		for (int i = 0; i < strlen(userMeasurement); i++) {
+			if (isalpha(userMeasurement[i]) == 0) {
+				validOption = false;
+				break;
+			}
+		}
+
+		if (validOption) {
+			// If strlen is greater than 2 
+			// (2 or less is the size of any lowercase measurement, such as ml, oz, g, etc)
+			if (strlen(userMeasurement) > LOWERCASE_STR_LENGTH) {
+				userMeasurement[0] = toupper(userMeasurement[0]);
+			}
+		} else {
+			printf("Please enter a valid measurement: ");
+			free(userMeasurement);
+		}
+		
+	} while (!validOption);
+
+	float userAmount;
 	printf("How much? (Format = '0.00') (Enter 0 for no amount): ");
-	char* userAmountAsChar = getUserInput();
-	float userAmount = atof(userAmountAsChar);
+	do {
+		validOption = true;
+		char* userAmountAsChar = getUserInput();
+		userAmount = atof(userAmountAsChar);
+
+		//Check if alphbetically characters were entered
+		for (int i = 0; i < strlen(userAmountAsChar); i++) {
+			if (isalpha(userAmountAsChar[i]) > 0) {
+				validOption = false;
+				break;
+			}
+		}
+
+		if (validOption) {
+			//Check that value entered is not negative
+			if (userAmount >= 0) {
+				validOption = true;
+			} else {
+				printf("Please enter a valid number: ");
+				validOption = false;
+			}
+		} else {
+			printf("Please enter a valid number: ");
+		}
+		
+		free(userAmountAsChar);
+	} while (!validOption);
 
 	INGREDIENT userIngredient = createIngredient(id, userIngredientName, userAmount, userMeasurement);
+	free(userIngredientName);
+	free(userMeasurement);
 	return userIngredient;
 }
 
 bool yesNoAddIngredient() {
 
-	bool yesNo = false;
-
 	do {
 		printf("\nWould you like to add another ingredient? (Y/N): ");
-		char* userInput = getUserInput();
-		userInput = convertStringToUpper(userInput);
-		if (checkYesNo(userInput)) {
+		if (checkYesNo()) {
 			return true;
 		} else {
 			return false;
@@ -181,13 +237,9 @@ bool yesNoAddIngredient() {
 
 bool yesNoAddEditIngredient() {
 
-	bool yesNo = false;
-
 	do {
 		printf("\nWould you like to add or edit another ingredient? (Y/N): ");
-		char* userInput = getUserInput();
-		userInput = convertStringToUpper(userInput);
-		if (checkYesNo(userInput)) {
+		if (checkYesNo()) {
 			return true;
 		} else {
 			return false;
@@ -203,4 +255,32 @@ char* convertStringToUpper(char* input) {
 	}
 	return input;
 
+}
+
+char* removeSpacesAndFormat(char* input) {
+
+	if (input == NULL) {
+		return NULL;
+	} else {
+		input[0] = toupper(input[0]);
+		int pos = 0;
+		bool setCaps = false;
+		for (int i = 0; i < strlen(input); i++) {
+			//If space is detected, shift current letter to the position of the space
+			if (input[i] != ' ') {
+				if (setCaps) {
+					input[pos++] = toupper(input[i]);
+					setCaps = false;
+				} else {
+					input[pos++] = input[i];
+				}
+				
+			} else {
+				setCaps = true;;
+			}
+		}
+		//null terminate the string after shifting
+		input[pos] = '\0';
+		return input;
+	}
 }

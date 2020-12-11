@@ -17,6 +17,7 @@
 #include "Input.h"
 #include <stdbool.h>
 
-void getLoginFromUser(USER*);
+bool getLoginFromUser(USER*);
 void createAccount();
 bool checkCreds(char*, char*, USER*);
+bool checkUsernameExists(char*, USER*);
