@@ -80,6 +80,7 @@
  *			Dec 11 - Added error checking in places that were lacking, Added more test recipes, Created README.txt
  *				   - Added date completed to Source.c
  *				   - Added program description
+ *				   - Fixed Display Menu
  *
  */
 

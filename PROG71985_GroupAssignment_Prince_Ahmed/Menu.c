@@ -109,7 +109,7 @@ void displayRecipeFunctions() {
 			"f) Delete an exisiting recipe\n"
 			"\n"
 			"g) Search for an existing recipe\n"
-			"h) Sort existing recipes (????????)\n"
+			"h) Sort existing recipes\n"
 			"\n"
 			"i) Quit\n\n");
 	printf("Choose a function: ");
