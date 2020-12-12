@@ -14,12 +14,34 @@
  *
  *	  Program Description:
  * 
+ *		Program Choice: 
  * 
- *	  Usernames/Passwords:
+ *			Recipe (as in cooking) manager
  * 
- *			Nick/Prince
- *			Islam/Ahmed
- *			Admin/Admin
+ *				Mandatory Program Features:
+ * 
+ *					-- Add a new appt/task/recipe/other 
+ *					-- Delete an existing appt/task/recipe/other
+ *					-- Update an existing appt/task/recipe/other
+ *					-- Display single appt/task/recipe/other
+ *					-- Display range appt/task/recipe/other
+ *					-- Display all appt/task/recipe/other
+ *					-- Search for appt/task/recipe/other
+ *					-- Friendly/easy to use UI (or menu system)
+ *					-- Save accumulated data to disk
+ *					-- Load accumulated data from disk
+ * 
+ *				Extra Program Features:
+ * 
+ *					-- Sort recipes
+ *					-- Login function
+ *					-- Account creation
+ * 
+ *						Usernames/Passwords:
+ * 
+ *								Nick/Prince
+ *								Islam/Ahmed
+ *								Admin/Admin
  *
  *    Revision History:		
  *
@@ -57,6 +79,7 @@
  *
  *			Dec 11 - Added error checking in places that were lacking, Added more test recipes, Created README.txt
  *				   - Added date completed to Source.c
+ *				   - Added program description
  *
  */
 
