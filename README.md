@@ -13,7 +13,7 @@
   <p align="center">
     Recipe Manager . 
     <br />
-    <a href="https://github.com/nickvprince/PROG71985_RecipeManager_Prince_Ahmed"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Babywise/PROG71985_RecipeManager_Prince_Ahmed"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
